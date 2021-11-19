@@ -2,8 +2,10 @@ package com.maxgideon.myrest.office.entity;
 
 
 import com.maxgideon.myrest.organization.entity.Organization;
+import com.maxgideon.myrest.user.entity.User;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,9 +33,19 @@ public class Office {
     @JoinColumn(name = "org_id")
     private Organization org;
 
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE,CascadeType.DETACH}, mappedBy = "office")
+    private List<User> users;
+
 
     public Office() {
 
+    }
+    public void addUserToOffice(User user){
+        if(users==null){
+            users = new ArrayList<>();
+        }
+        users.add(user);
+        user.setOffice(this);
     }
 
     public long getId() {
@@ -82,5 +94,16 @@ public class Office {
 
     public void setOrg(Organization org) {
         this.org = org;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+        for(User user : users){
+            user.setOffice(this);
+        }
     }
 }

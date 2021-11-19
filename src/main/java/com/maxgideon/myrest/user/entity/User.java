@@ -1,7 +1,12 @@
 package com.maxgideon.myrest.user.entity;
 
 
+import com.maxgideon.myrest.office.entity.Office;
+import com.maxgideon.myrest.user.entity.references.Countries;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -21,8 +26,36 @@ public class User {
     @Column(name = "middle_name")
     private String middleName;
 
+    @Column(name = "position")
+    private String position;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "is_identified")
+    private String isIdentified;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Documents> documents;
+
+    @OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name = "countries_id")
+    private Countries countries;
+
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name = "office_id")
+    private Office office;
+
     public User(){
 
+    }
+
+    public void addDocumentsToUser(Documents doc){
+        if(documents==null){
+            documents = new ArrayList<>();
+        }
+        documents.add(doc);
+        doc.setUser(this);
     }
 
     public long getId() {
@@ -55,5 +88,56 @@ public class User {
 
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getIsIdentified() {
+        return isIdentified;
+    }
+
+    public void setIsIdentified(String isIdentified) {
+        this.isIdentified = isIdentified;
+    }
+
+    public List<Documents> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(List<Documents> documents) {
+        this.documents = documents;
+        for(Documents doc : documents){
+            doc.setUser(this);
+        }
+    }
+
+    public Countries getCountries() {
+        return countries;
+    }
+
+    public void setCountries(Countries countries) {
+        this.countries = countries;
+    }
+
+    public Office getOffice() {
+        return office;
+    }
+
+    public void setOffice(Office office) {
+        this.office = office;
     }
 }
