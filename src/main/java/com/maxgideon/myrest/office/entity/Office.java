@@ -1,6 +1,8 @@
 package com.maxgideon.myrest.office.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.maxgideon.myrest.organization.entity.Organization;
 import com.maxgideon.myrest.user.entity.User;
 
@@ -34,9 +36,11 @@ public class Office {
 
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE,CascadeType.DETACH})
     @JoinColumn(name = "org_id")
+    @JsonBackReference
     private Organization org;
 
     @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE,CascadeType.DETACH}, mappedBy = "office")
+    @JsonManagedReference
     private List<User> users;
 
 

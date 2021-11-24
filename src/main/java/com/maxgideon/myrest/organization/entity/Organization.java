@@ -1,5 +1,6 @@
 package com.maxgideon.myrest.organization.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.maxgideon.myrest.office.entity.Office;
 
 import javax.persistence.*;
@@ -40,6 +41,7 @@ public class Organization {
     private String isActive;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "org")
+    @JsonManagedReference
     private List<Office> orgOffice;
 
     public Organization() {

@@ -1,12 +1,13 @@
 package com.maxgideon.myrest.user.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.maxgideon.myrest.office.entity.Office;
 import com.maxgideon.myrest.user.entity.references.Countries;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 @Table(name = "user")
@@ -39,6 +40,7 @@ public class User {
     private String isIdentified;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonManagedReference
     private Documents documents;
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
@@ -47,6 +49,7 @@ public class User {
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "office_id")
+    @JsonBackReference
     private Office office;
 
     public User(){

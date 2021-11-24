@@ -1,5 +1,7 @@
 package com.maxgideon.myrest.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.maxgideon.myrest.user.entity.references.DocumentsType;
 
 import javax.persistence.*;
@@ -28,6 +30,7 @@ public class Documents {
 
     @OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     public Documents() {
