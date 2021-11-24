@@ -60,7 +60,11 @@ CREATE TABLE IF NOT EXISTS documents (
   FOREIGN KEY (doc_type) REFERENCES documents_type(id),
   FOREIGN KEY (user_id) REFERENCES user(id)
 );
-
+CREATE INDEX IX_OFFICE_ORGANIZATION_Id ON Office (org_id);
+CREATE INDEX IX_USER_COUNTRIES_Id ON User (countries_id);
+CREATE INDEX IX_USER_OFFICE_Id ON User (office_id);
+CREATE INDEX IX_DOCUMENTS_DOCUMENTS_TYPE_Id ON Documents (doc_type);
+CREATE INDEX IX_DOCUMENTS_USER ON Documents (user_id);
 
 
 

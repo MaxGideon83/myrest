@@ -13,6 +13,9 @@ public class Documents {
     @Column(name = "id")
     private long id;
 
+    @Version
+    private Integer version;
+
     @Column(name = "doc_number", unique = true, nullable = true)
     private String docNumber;
 

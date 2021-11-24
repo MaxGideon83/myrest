@@ -17,6 +17,9 @@ public class Office {
     @Column(name = "id")
     private long id;
 
+    @Version
+    private Integer version;
+
     @Column(name = "name")
     private String name;
 

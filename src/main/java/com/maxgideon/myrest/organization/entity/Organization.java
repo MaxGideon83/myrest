@@ -15,6 +15,9 @@ public class Organization {
     @Column(name = "id")
     private long id;
 
+    @Version
+    private Integer version;
+
     @Column(name = "name")
     private String name;
 

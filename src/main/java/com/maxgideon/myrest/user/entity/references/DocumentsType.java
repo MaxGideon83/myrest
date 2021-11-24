@@ -15,6 +15,9 @@ public class DocumentsType {
     @Column(name = "id")
     private long id;
 
+    @Version
+    private Integer version;
+
     @Column(name = "doc_name", unique = true, nullable = false)
     private String docName;
 

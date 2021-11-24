@@ -11,6 +11,9 @@ public class Countries {
     @Column(name = "id")
     private long id;
 
+    @Version
+    private Integer version;
+
     @Column(name = "citizenship_name", unique = true, nullable = false)
     private String citizenshipName;
 

@@ -17,6 +17,9 @@ public class User {
     @Column(name = "id")
     private long id;
 
+    @Version
+    private Integer version;
+
     @Column(name = "first_name")
     private String firstName;
 
