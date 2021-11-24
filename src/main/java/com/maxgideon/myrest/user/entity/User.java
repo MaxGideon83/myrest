@@ -35,10 +35,10 @@ public class User {
     @Column(name = "is_identified")
     private String isIdentified;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Documents> documents;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private Documents documents;
 
-    @OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "countries_id")
     private Countries countries;
 
@@ -50,21 +50,10 @@ public class User {
 
     }
 
-    public void addDocumentsToUser(Documents doc){
-        if(documents==null){
-            documents = new ArrayList<>();
-        }
-        documents.add(doc);
-        doc.setUser(this);
-    }
-
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -114,15 +103,12 @@ public class User {
         this.isIdentified = isIdentified;
     }
 
-    public List<Documents> getDocuments() {
+    public Documents getDocuments() {
         return documents;
     }
 
-    public void setDocuments(List<Documents> documents) {
+    public void setDocuments(Documents documents) {
         this.documents = documents;
-        for(Documents doc : documents){
-            doc.setUser(this);
-        }
     }
 
     public Countries getCountries() {

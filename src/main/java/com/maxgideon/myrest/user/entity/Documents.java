@@ -19,11 +19,11 @@ public class Documents {
     @Column(name = "doc_date", unique = true, nullable = true)
     private String docDate;
 
-    @OneToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "doc_type")
     private DocumentsType docType;
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -34,9 +34,6 @@ public class Documents {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getDocNumber() {
         return docNumber;

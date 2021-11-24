@@ -25,10 +25,6 @@ public class Countries {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getCitizenshipName() {
         return citizenshipName;
     }
