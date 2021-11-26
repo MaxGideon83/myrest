@@ -6,6 +6,7 @@ import com.maxgideon.myrest.office.entity.Office;
 
 import java.util.List;
 
+
 @JsonInclude (JsonInclude.Include.NON_NULL)
 public class OrganizationData {
 
