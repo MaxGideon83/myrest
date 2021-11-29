@@ -15,12 +15,31 @@ public class OrganizationServiceImpl implements OrganizationService{
     OrganizationDAO organizationDAO;
 
     @Override
-    public List<OrganizationData> getAllOrganization() {
-        List<Organization>list =  organizationDAO.getAllOrganizations();
+    public List<OrganizationData> getAllOrganization(OrganizationData organizationData) {
+
+        List<Organization>list =  organizationDAO.getAllOrganizations(organizationData);
         List<OrganizationData> dl = new ArrayList<>();
         for(Organization org : list){
             dl.add(new OrganizationData(org.getId(),org.getName(),org.getIsActive()));
         }
         return dl;
+    }
+
+    @Override
+    public OrganizationData getOrganizationById(long id) {
+        Organization organization = organizationDAO.getOrganizationById(id);
+        OrganizationData organizationData = new OrganizationData(organization);
+
+        return organizationData;
+    }
+
+    @Override
+    public void updateOrganization() {
+
+    }
+
+    @Override
+    public void saveOrganization() {
+
     }
 }

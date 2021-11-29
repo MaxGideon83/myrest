@@ -3,6 +3,7 @@ package com.maxgideon.myrest.organization.service.data;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import com.maxgideon.myrest.office.entity.Office;
+import com.maxgideon.myrest.organization.entity.Organization;
 
 import java.util.List;
 
@@ -35,6 +36,17 @@ public class OrganizationData {
         this.id = id;
         this.name = name;
         this.isActive = isActive;
+    }
+
+    public OrganizationData(Organization org) {
+        this.id = org.getId();
+        this.name = org.getName();
+        this.fullName = org.getFullName();
+        this.inn = org.getInn();
+        this.kpp = org.getKpp();
+        this.address = org.getAddress();
+        this.phone = org.getPhone();
+        this.isActive = org.getIsActive();
     }
 
     public Long getId() {

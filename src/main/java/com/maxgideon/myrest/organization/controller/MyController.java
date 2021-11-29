@@ -1,11 +1,10 @@
 package com.maxgideon.myrest.organization.controller;
 
+import com.maxgideon.myrest.organization.entity.Organization;
 import com.maxgideon.myrest.organization.service.OrganizationService;
 import com.maxgideon.myrest.organization.service.data.OrganizationData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,10 +16,16 @@ public class MyController {
     private OrganizationService organizationService;
 
 
-    @GetMapping("/list")
-    public List<OrganizationData> showAllOrganizations(){
-       return organizationService.getAllOrganization();
+    @PostMapping("/list")
+    public List<OrganizationData> showAllOrganizations(@RequestBody OrganizationData organizationData){
+       return organizationService.getAllOrganization(organizationData);
 
     }
+    @GetMapping("/{id}")
+    public OrganizationData getOrganizationById(@PathVariable Long id){
+        return organizationService.getOrganizationById(id);
+    }
+
+
 
 }
