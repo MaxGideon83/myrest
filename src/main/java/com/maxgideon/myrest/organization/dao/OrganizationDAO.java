@@ -10,8 +10,9 @@ public interface OrganizationDAO {
     public List<Organization> getAllOrganizations(OrganizationData organizationData);
 
     public Organization getOrganizationById(long id);
-//
-//    public void saveOrganization(Organization organization);
-//
-//    public void updateOrganization(Organization organization);
+
+    public void saveOrganization(OrganizationData organizationData);
+
+    public void updateOrganization(OrganizationData organizationData);
+
 }

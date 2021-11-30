@@ -2,10 +2,12 @@ package com.maxgideon.myrest.organization.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.maxgideon.myrest.office.entity.Office;
+import com.maxgideon.myrest.organization.service.data.OrganizationData;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "organization")
@@ -47,6 +49,17 @@ public class Organization {
     public Organization() {
 
     }
+
+    public void organizationUpdate(OrganizationData organizationData){
+        this.name = organizationData.getName();
+        this.fullName = organizationData.getFullName();
+        this.inn = organizationData.getInn();
+        this.kpp = organizationData.getKpp();
+        this.address = organizationData.getAddress();
+        this.phone = organizationData.getPhone();
+        this.isActive = organizationData.getIsActive();
+    }
+
     public void addOfficeToOrganization(Office of){
         if(orgOffice==null){
             orgOffice = new ArrayList<>();
@@ -58,6 +71,7 @@ public class Organization {
     public long getId() {
         return id;
     }
+
 
     public String getName() {
         return name;
@@ -125,4 +139,5 @@ public class Organization {
             of.setOrg(this);
         }
     }
+
 }

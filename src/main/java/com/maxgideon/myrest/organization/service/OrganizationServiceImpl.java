@@ -34,12 +34,12 @@ public class OrganizationServiceImpl implements OrganizationService{
     }
 
     @Override
-    public void updateOrganization() {
-
+    public void updateOrganization(OrganizationData organizationData) {
+        organizationDAO.updateOrganization(organizationData);
     }
 
     @Override
-    public void saveOrganization() {
-
+    public void saveOrganization(OrganizationData organizationData) {
+        organizationDAO.saveOrganization(organizationData);
     }
 }

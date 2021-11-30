@@ -4,11 +4,11 @@ VALUES ('643','Российская Федерация');
 INSERT INTO documents_type (DOC_CODE, DOC_NAME)
 VALUES ('21', 'Паспорт РФ');
 
-INSERT INTO organization (name, full_name, inn, kpp, address, phone, is_active)
-VALUES ('РиК', 'Рога и копыта', '100032652', '236547','Москва, Красная Площадь, мавзолей','8-999-999-99-99','true');
+INSERT INTO organization (name, full_name, inn, kpp, address, phone, is_active, version)
+VALUES ('РиК', 'Рога и копыта', '100032652', '236547','Москва, Красная Площадь, мавзолей','8-999-999-99-99','true','0');
 
-INSERT INTO organization (name, full_name, inn, kpp, address, phone, is_active)
-VALUES ('РиК', 'Рис и Кукуруза', '103437658', '335541','Питер, Арка, дом','8-899-899-89-89','true');
+INSERT INTO organization (name, full_name, inn, kpp, address, phone, is_active,version)
+VALUES ('РиК', 'Рис и Кукуруза', '103437658', '335541','Питер, Арка, дом','8-899-899-89-89','true','0');
 
 INSERT INTO office (name, address, phone, is_active, org_id)
 VALUES ('Центральный','Мавзолей, кабинет 666','8-999-999-99-98','true','1');

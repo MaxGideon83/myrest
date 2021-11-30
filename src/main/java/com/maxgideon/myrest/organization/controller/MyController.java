@@ -1,6 +1,6 @@
 package com.maxgideon.myrest.organization.controller;
 
-import com.maxgideon.myrest.organization.entity.Organization;
+
 import com.maxgideon.myrest.organization.service.OrganizationService;
 import com.maxgideon.myrest.organization.service.data.OrganizationData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,22 @@ public class MyController {
        return organizationService.getAllOrganization(organizationData);
 
     }
+
     @GetMapping("/{id}")
-    public OrganizationData getOrganizationById(@PathVariable Long id){
+    public OrganizationData getOrganizationById(@PathVariable Long id) {
         return organizationService.getOrganizationById(id);
+    }
+
+    @PostMapping("/save")
+    public void saveOrganization(@RequestBody OrganizationData organizationData){
+        organizationService.saveOrganization(organizationData);
+
+    }
+
+    @PostMapping("/update")
+    public void updateOrganizations(@RequestBody OrganizationData organizationData){
+        organizationService.updateOrganization(organizationData);
+
     }
 
 
