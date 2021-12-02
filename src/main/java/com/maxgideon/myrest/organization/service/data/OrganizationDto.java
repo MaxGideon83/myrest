@@ -2,25 +2,40 @@ package com.maxgideon.myrest.organization.service.data;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import com.maxgideon.myrest.validation.Marker;
 import com.maxgideon.myrest.office.entity.Office;
 import com.maxgideon.myrest.organization.entity.Organization;
 
+
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 
 @JsonInclude (JsonInclude.Include.NON_NULL)
-public class OrganizationData {
+public class OrganizationDto {
 
+    @NotNull(groups = Marker.UpdateObject.class)
     private Long id;
 
+    @NotNull(groups = Marker.UpdateObject.class)
+    @NotNull(groups = Marker.SaveObject.class)
+    @NotNull(groups = Marker.ListObject.class)
     private String name;
 
+    @NotNull(groups = Marker.UpdateObject.class)
+    @NotNull(groups = Marker.SaveObject.class)
     private String fullName;
 
+    @NotNull(groups = Marker.UpdateObject.class)
+    @NotNull(groups = Marker.SaveObject.class)
     private String inn;
 
+    @NotNull(groups = Marker.UpdateObject.class)
+    @NotNull(groups = Marker.SaveObject.class)
     private String kpp;
 
+    @NotNull(groups = Marker.UpdateObject.class)
+    @NotNull(groups = Marker.SaveObject.class)
     private String address;
 
     private String phone;
@@ -29,16 +44,16 @@ public class OrganizationData {
 
     private List<Office> orgOffice;
 
-    public OrganizationData() {
+    public OrganizationDto() {
 
     }
-    public OrganizationData(Long id, String name, String isActive ){
+    public OrganizationDto(Long id, String name, String isActive ){
         this.id = id;
         this.name = name;
         this.isActive = isActive;
     }
 
-    public OrganizationData(Organization org) {
+    public OrganizationDto(Organization org) {
         this.id = org.getId();
         this.name = org.getName();
         this.fullName = org.getFullName();

@@ -1,8 +1,8 @@
 package com.maxgideon.myrest.organization.service;
 
-import com.maxgideon.myrest.organization.dao.OrganizationDAO;
+import com.maxgideon.myrest.organization.dao.OrganizationDao;
 import com.maxgideon.myrest.organization.entity.Organization;
-import com.maxgideon.myrest.organization.service.data.OrganizationData;
+import com.maxgideon.myrest.organization.service.data.OrganizationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,34 +12,34 @@ import java.util.List;
 @Service
 public class OrganizationServiceImpl implements OrganizationService{
     @Autowired
-    OrganizationDAO organizationDAO;
+    OrganizationDao organizationDAO;
 
     @Override
-    public List<OrganizationData> getAllOrganization(OrganizationData organizationData) {
+    public List<OrganizationDto> getAllOrganization(OrganizationDto organizationDto) {
 
-        List<Organization>list =  organizationDAO.getAllOrganizations(organizationData);
-        List<OrganizationData> dl = new ArrayList<>();
+        List<Organization>list =  organizationDAO.getAllOrganizations(organizationDto);
+        List<OrganizationDto> dl = new ArrayList<>();
         for(Organization org : list){
-            dl.add(new OrganizationData(org.getId(),org.getName(),org.getIsActive()));
+            dl.add(new OrganizationDto(org.getId(),org.getName(),org.getIsActive()));
         }
         return dl;
     }
 
     @Override
-    public OrganizationData getOrganizationById(long id) {
+    public OrganizationDto getOrganizationById(long id) {
         Organization organization = organizationDAO.getOrganizationById(id);
-        OrganizationData organizationData = new OrganizationData(organization);
+        OrganizationDto organizationDto = new OrganizationDto(organization);
 
-        return organizationData;
+        return organizationDto;
     }
 
     @Override
-    public void updateOrganization(OrganizationData organizationData) {
-        organizationDAO.updateOrganization(organizationData);
+    public void updateOrganization(OrganizationDto organizationDto) {
+        organizationDAO.updateOrganization(organizationDto);
     }
 
     @Override
-    public void saveOrganization(OrganizationData organizationData) {
-        organizationDAO.saveOrganization(organizationData);
+    public void saveOrganization(OrganizationDto organizationDto) {
+        organizationDAO.saveOrganization(organizationDto);
     }
 }

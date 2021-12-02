@@ -1,8 +1,7 @@
 package com.maxgideon.myrest.organization.dao;
 
 import com.maxgideon.myrest.organization.entity.Organization;
-import com.maxgideon.myrest.organization.service.data.OrganizationData;
-import org.hibernate.Session;
+import com.maxgideon.myrest.organization.service.data.OrganizationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,25 +15,25 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class OrganizationDAOImpl implements OrganizationDAO{
+public class OrganizationDaoImpl implements OrganizationDao {
 
     @Autowired
     private EntityManager em;
 
     @Override
-    public List<Organization> getAllOrganizations(OrganizationData organizationData) {
+    public List<Organization> getAllOrganizations(OrganizationDto organizationDto) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Organization> criteriaQuery = cb.createQuery(Organization.class);
         Root<Organization> organizationRoot = criteriaQuery.from(Organization.class);
         Predicate criteria = cb.conjunction();
-        Predicate p = cb.equal(organizationRoot.get("name"),organizationData.getName());
+        Predicate p = cb.equal(organizationRoot.get("name"), organizationDto.getName());
         criteria = cb.and(criteria,p);
-        if(organizationData.getInn()!= null){
-            Predicate pr = cb.equal(organizationRoot.get("inn"),organizationData.getInn());
+        if(organizationDto.getInn()!= null){
+            Predicate pr = cb.equal(organizationRoot.get("inn"), organizationDto.getInn());
             criteria = cb.and(criteria,pr);
         }
-        if(organizationData.getIsActive() != null){
-            Predicate pr = cb.equal(organizationRoot.get("isActive"),organizationData.getIsActive());
+        if(organizationDto.getIsActive() != null){
+            Predicate pr = cb.equal(organizationRoot.get("isActive"), organizationDto.getIsActive());
             criteria = cb.and(criteria,pr);
         }
         criteriaQuery.where(criteria);
@@ -49,15 +48,15 @@ public class OrganizationDAOImpl implements OrganizationDAO{
     }
 
     @Override
-    public void saveOrganization(OrganizationData organizationData) {
+    public void saveOrganization(OrganizationDto organizationDto) {
         Organization organization = new Organization();
-        organization.organizationUpdate(organizationData);
+        organization.organizationUpdate(organizationDto);
         em.persist(organization);
     }
 
     @Override
-    public void updateOrganization(OrganizationData organizationData) {
-        Organization organization = em.find(Organization.class, organizationData.getId());
-        organization.organizationUpdate(organizationData);
+    public void updateOrganization(OrganizationDto organizationDto) {
+        Organization organization = em.find(Organization.class, organizationDto.getId());
+        organization.organizationUpdate(organizationDto);
     }
 }

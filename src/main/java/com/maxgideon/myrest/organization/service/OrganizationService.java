@@ -1,19 +1,19 @@
 package com.maxgideon.myrest.organization.service;
 
 
-import com.maxgideon.myrest.organization.service.data.OrganizationData;
+import com.maxgideon.myrest.organization.service.data.OrganizationDto;
 
 import java.util.List;
 
 
 public interface OrganizationService {
 
-    public List<OrganizationData> getAllOrganization(OrganizationData organizationData);
+    public List<OrganizationDto> getAllOrganization(OrganizationDto organizationDto);
 
-    public OrganizationData getOrganizationById(long id);
+    public OrganizationDto getOrganizationById(long id);
 
-    public void updateOrganization(OrganizationData organizationData);
+    public void updateOrganization(OrganizationDto organizationDto);
 
-    public void saveOrganization(OrganizationData organizationData);
+    public void saveOrganization(OrganizationDto organizationDto);
 
 }
