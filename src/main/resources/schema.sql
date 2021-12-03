@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS office (
 CREATE TABLE IF NOT EXISTS user (
   id int NOT NULL AUTO_INCREMENT,
   first_name varchar(30),
-  last_name varchar(30),
+  second_name varchar(30),
   middle_name varchar(30),
   position varchar(30),
   phone varchar(30),

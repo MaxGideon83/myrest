@@ -14,10 +14,10 @@ public class Countries {
     @Version
     private Integer version;
 
-    @Column(name = "citizenship_name", unique = true, nullable = false)
+    @Column(name = "citizenship_name", unique = true)
     private String citizenshipName;
 
-    @Column(name = "citizenship_code", unique = true, nullable = false)
+    @Column(name = "citizenship_code", unique = true)
     private String citizenshipCode;
 
     public Countries() {

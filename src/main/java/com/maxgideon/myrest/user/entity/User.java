@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.maxgideon.myrest.office.entity.Office;
 import com.maxgideon.myrest.user.entity.references.Countries;
+import com.maxgideon.myrest.user.service.data.UserDto;
 
 import javax.persistence.*;
 
@@ -24,8 +25,8 @@ public class User {
     @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name")
-    private String lastName;
+    @Column(name = "second_name")
+    private String secondName;
 
     @Column(name = "middle_name")
     private String middleName;
@@ -56,6 +57,25 @@ public class User {
 
     }
 
+    public void userUpdate(UserDto userDto){
+        this.firstName = userDto.getFirstName();
+        if(userDto.getSecondName() != null) {
+            this.secondName = userDto.getSecondName();
+        }
+        if(userDto.getMiddleName() != null) {
+            this.middleName = userDto.getMiddleName();
+        }
+
+        this.position = userDto.getPosition();
+
+        if(userDto.getPhone() != null) {
+            this.phone = userDto.getPhone();
+        }
+        if(userDto.getIsIdentified() != null) {
+            this.isIdentified = userDto.getIsIdentified();
+        }
+    }
+
     public long getId() {
         return id;
     }
@@ -69,12 +89,12 @@ public class User {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getSecondName() {
+        return secondName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setSecondName(String lastName) {
+        this.secondName = lastName;
     }
 
     public String getMiddleName() {

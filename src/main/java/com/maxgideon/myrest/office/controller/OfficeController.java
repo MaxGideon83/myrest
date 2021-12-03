@@ -25,7 +25,7 @@ public class OfficeController {
     }
 
     @GetMapping("/{id}")
-    public OfficeDto getOfficeById(@PathVariable Long id){
+    public OfficeDto getOfficeById(@PathVariable long id){
         return officeService.getOfficeById(id);
     }
 

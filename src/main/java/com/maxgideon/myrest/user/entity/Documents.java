@@ -18,10 +18,10 @@ public class Documents {
     @Version
     private Integer version;
 
-    @Column(name = "doc_number", unique = true, nullable = true)
+    @Column(name = "doc_number")
     private String docNumber;
 
-    @Column(name = "doc_date", unique = true, nullable = true)
+    @Column(name = "doc_date")
     private String docDate;
 
     @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
