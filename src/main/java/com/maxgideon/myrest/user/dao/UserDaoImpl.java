@@ -79,26 +79,15 @@ public class UserDaoImpl implements UserDao {
         Countries countries = null;
         if (userDto.getDocCode() != null || userDto.getDocName() != null) {
 
-            try {
+
                 TypedQuery<DocumentsType> query = em.createQuery(
                         "SELECT d FROM DocumentsType d WHERE d.docCode = :docCode OR d.docName = :docName", DocumentsType.class);
                 documentsType = query.setParameter("docCode", userDto.getDocCode())
                         .setParameter("docName", userDto.getDocName())
                         .getSingleResult();
-            } catch (NoResultException nre) {
-
-            }
-
-            if (documentsType != null) {
                 documents = new Documents();
                 documents.setDocType(documentsType);
-            } else {
-                documents = new Documents();
-                documentsType = new DocumentsType();
-                documentsType.setDocCode(userDto.getDocCode());
-                documentsType.setDocName(userDto.getDocName());
-                documents.setDocType(documentsType);
-            }
+
         }
         if (userDto.getDocDate() != null || userDto.getDocNumber() != null) {
             if (documents != null) {
@@ -111,25 +100,20 @@ public class UserDaoImpl implements UserDao {
             }
         }
         if (userDto.getCitizenshipCode() != null) {
-            try {
+
                 TypedQuery<Countries> query = em.createQuery(
                         "SELECT d FROM Countries d WHERE d.citizenshipCode = :citizenshipCode", Countries.class);
                 countries = query.setParameter("citizenshipCode", userDto.getCitizenshipCode()).getSingleResult();
-            } catch (NoResultException nre) {
-
-            }
-            if (countries != null) {
                 user.setCountries(countries);
-            } else {
-                countries = new Countries();
-                countries.setCitizenshipCode(userDto.getCitizenshipCode());
-                user.setCountries(countries);
-            }
-
         }
+
         user.setDocuments(documents);
         Office office = em.find(Office.class, userDto.getOfficeId());
-        user.setOffice(office);
+        if(office != null) {
+            user.setOffice(office);
+        }else{
+            throw new NoResultException();
+        }
         em.persist(user);
 
     };

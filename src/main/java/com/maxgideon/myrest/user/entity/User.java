@@ -135,6 +135,7 @@ public class User {
 
     public void setDocuments(Documents documents) {
         this.documents = documents;
+        documents.setUser(this);
     }
 
     public Countries getCountries() {
