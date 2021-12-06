@@ -6,23 +6,33 @@ import com.maxgideon.myrest.office.entity.Office;
 import com.maxgideon.myrest.user.entity.Documents;
 import com.maxgideon.myrest.user.entity.User;
 import com.maxgideon.myrest.user.entity.references.Countries;
+import com.maxgideon.myrest.validation.Marker;
+
+import javax.validation.constraints.NotNull;
 
 
 @JsonInclude(value = JsonInclude.Include.NON_DEFAULT)
 public class UserDto {
 
+    @NotNull(groups = Marker.UpdateObject.class)
     private long id;
 
+    @NotNull(groups = Marker.ListObject.class)
+    @NotNull(groups = Marker.SaveObject.class)
     private long officeId;
 
     private String docCode;
 
+    @NotNull(groups = Marker.SaveObject.class)
+    @NotNull(groups = Marker.UpdateObject.class)
     private String firstName;
 
     private String secondName;
 
     private String middleName;
 
+    @NotNull(groups = Marker.SaveObject.class)
+    @NotNull(groups = Marker.UpdateObject.class)
     private String position;
 
     private String phone;
@@ -62,11 +72,19 @@ public class UserDto {
         this.middleName = user.getMiddleName();
         this.position = user.getPosition();
         this.phone = user.getPhone();
-        this.docName = user.getDocuments().getDocType().getDocName();
-        this.docNumber = user.getDocuments().getDocNumber();
-        this.docDate = user.getDocuments().getDocDate();
-        this.citizenshipName = user.getCountries().getCitizenshipName();
-        this.citizenshipCode = user.getCountries().getCitizenshipCode();
+        if(user.getDocuments()!= null) {
+            if(user.getDocuments().getDocType() != null) {
+                this.docName = user.getDocuments().getDocType().getDocName();
+            }
+        }
+        if(user.getDocuments() != null) {
+            this.docNumber = user.getDocuments().getDocNumber();
+            this.docDate = user.getDocuments().getDocDate();
+        }
+        if(user.getCountries() != null) {
+            this.citizenshipName = user.getCountries().getCitizenshipName();
+            this.citizenshipCode = user.getCountries().getCitizenshipCode();
+        }
         this.isIdentified = user.getIsIdentified();
     }
 

@@ -98,6 +98,7 @@ public class UserDaoImpl implements UserDao {
                 documents.setDocDate(userDto.getDocDate());
                 documents.setDocNumber(userDto.getDocNumber());
             }
+
         }
         if (userDto.getCitizenshipCode() != null) {
 
@@ -107,7 +108,10 @@ public class UserDaoImpl implements UserDao {
                 user.setCountries(countries);
         }
 
-        user.setDocuments(documents);
+        if(documents != null){
+            user.setDocuments(documents);
+        }
+
         Office office = em.find(Office.class, userDto.getOfficeId());
         if(office != null) {
             user.setOffice(office);
@@ -125,16 +129,55 @@ public class UserDaoImpl implements UserDao {
 
         User user = em.find(User.class, userDto.getId());
         user.userUpdate(userDto);
+        Documents documents = user.getDocuments();
+
 
         if(userDto.getOfficeId() != 0){
             Office office = em.find(Office.class, userDto.getOfficeId());
-            user.setOffice(office);
+            if(office != null) {
+                user.setOffice(office);
+            }else{
+                throw new NoResultException();
+            }
         }
         if(userDto.getDocNumber() != null){
-            user.getDocuments().setDocNumber(userDto.getDocNumber());
+            if(documents != null){
+                documents.setDocNumber(userDto.getDocNumber());
+            }else{
+                documents = new Documents();
+                documents.setDocNumber(userDto.getDocNumber());
+                user.setDocuments(documents);
+            }
+
         }
         if(userDto.getDocDate() != null){
-            user.getDocuments().setDocDate(userDto.getDocDate());
+            if(documents != null){
+                documents.setDocDate(userDto.getDocDate());
+            }else{
+                documents = new Documents();
+                documents.setDocDate(userDto.getDocDate());
+                user.setDocuments(documents);
+            }
+
+        }
+        if(userDto.getCitizenshipCode() != null){
+            TypedQuery<Countries> query = em.createQuery(
+                    "SELECT d FROM Countries d WHERE d.citizenshipCode = :citizenshipCode", Countries.class);
+            Countries countries = query.setParameter("citizenshipCode", userDto.getCitizenshipCode()).getSingleResult();
+            user.setCountries(countries);
+        }
+        if(userDto.getDocName() != null){
+            TypedQuery<DocumentsType> query = em.createQuery(
+                    "SELECT d FROM DocumentsType d WHERE d.docName = :docName", DocumentsType.class);
+            DocumentsType documentsType = query.setParameter("docName", userDto.getDocName()).getSingleResult();
+            if (documents != null) {
+                documents.setDocType(documentsType);
+            }else{
+                documents = new Documents();
+                documents.setDocType(documentsType);
+                user.setDocuments(documents);
+            }
+
         }
 
 

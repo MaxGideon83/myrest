@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -54,9 +55,13 @@ public class OfficeDaoImpl implements OfficeDao{
     @Override
     public void saveOffice(OfficeDto officeDto) {
         Office office = new Office();
-        office.officeUpdate(officeDto);//
+        office.officeUpdate(officeDto);
         Organization organization = em.find(Organization.class, officeDto.getOrgId());
-        office.setOrg(organization);
+        if(organization != null) {
+            office.setOrg(organization);
+        }else{
+            throw new NoResultException();
+        }
         em.persist(office);
     }
 
