@@ -14,7 +14,7 @@ public class OfficeDto {
 
 
     @NotNull(groups = Marker.UpdateObject.class)
-    private long id;
+    private Long id;
 
     @NotNull(groups = Marker.UpdateObject.class)
     private String name;
@@ -45,11 +45,11 @@ public class OfficeDto {
         this.isActive = isActive;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

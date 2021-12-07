@@ -20,12 +20,12 @@ public class OfficeController {
 
     @Validated({Marker.ListObject.class})
     @PostMapping("/list")
-    public List<OfficeDto> showAllOffice(@RequestBody @Valid OfficeDto officeDto){
+    public Object showAllOffice(@RequestBody @Valid OfficeDto officeDto){
         return officeService.getAllOffice(officeDto);
     }
 
     @GetMapping("/{id}")
-    public OfficeDto getOfficeById(@PathVariable long id){
+    public Object getOfficeById(@PathVariable long id){
         return officeService.getOfficeById(id);
     }
 
@@ -34,6 +34,7 @@ public class OfficeController {
     public void saveOffice(@RequestBody @Valid OfficeDto officeDto){
         officeService.saveOffice(officeDto);
     }
+
     @Validated({Marker.UpdateObject.class})
     @PostMapping("/update")
     public void updateOffice(@RequestBody @Valid OfficeDto officeDto){

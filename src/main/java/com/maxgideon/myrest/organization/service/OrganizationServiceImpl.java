@@ -15,7 +15,7 @@ public class OrganizationServiceImpl implements OrganizationService{
     OrganizationDao organizationDAO;
 
     @Override
-    public List<OrganizationDto> getAllOrganization(OrganizationDto organizationDto) {
+    public Object getAllOrganization(OrganizationDto organizationDto) {
 
         List<Organization>list =  organizationDAO.getAllOrganizations(organizationDto);
         List<OrganizationDto> dl = new ArrayList<>();
@@ -26,11 +26,11 @@ public class OrganizationServiceImpl implements OrganizationService{
     }
 
     @Override
-    public OrganizationDto getOrganizationById(long id) {
+    public Object getOrganizationById(long id) {
         Organization organization = organizationDAO.getOrganizationById(id);
         OrganizationDto organizationDto = new OrganizationDto(organization);
+        return  organizationDto;
 
-        return organizationDto;
     }
 
     @Override

@@ -7,7 +7,6 @@ import com.maxgideon.myrest.user.entity.Documents;
 import com.maxgideon.myrest.user.entity.User;
 import com.maxgideon.myrest.user.entity.references.Countries;
 import com.maxgideon.myrest.validation.Marker;
-
 import javax.validation.constraints.NotNull;
 
 
@@ -15,11 +14,11 @@ import javax.validation.constraints.NotNull;
 public class UserDto {
 
     @NotNull(groups = Marker.UpdateObject.class)
-    private long id;
+    private Long id;
 
     @NotNull(groups = Marker.ListObject.class)
     @NotNull(groups = Marker.SaveObject.class)
-    private long officeId;
+    private Long officeId;
 
     private String docCode;
 
@@ -88,19 +87,19 @@ public class UserDto {
         this.isIdentified = user.getIsIdentified();
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getOfficeId() {
+    public Long getOfficeId() {
         return officeId;
     }
 
-    public void setOfficeId(long officeId) {
+    public void setOfficeId(Long officeId) {
         this.officeId = officeId;
     }
 

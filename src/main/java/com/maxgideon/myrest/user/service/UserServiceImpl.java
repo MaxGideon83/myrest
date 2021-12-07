@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService{
     @Autowired
     UserDao userDao;
 
-    public List<UserDto> getAllUser(UserDto userDto){
+    public Object getAllUser(UserDto userDto){
         List<User> list = userDao.getAllUser(userDto);
         List<UserDto> listDto = new ArrayList<>();
         for(User us: list){
@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService{
         }
         return listDto;
     };
-    public UserDto getUserById(long id){
+    public Object getUserById(long id){
           User user = userDao.getUserById(id);
           UserDto userDto = new UserDto(user);
           return userDto;

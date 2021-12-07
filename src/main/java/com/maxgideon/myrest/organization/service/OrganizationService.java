@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface OrganizationService {
 
-    public List<OrganizationDto> getAllOrganization(OrganizationDto organizationDto);
+    public Object getAllOrganization(OrganizationDto organizationDto);
 
-    public OrganizationDto getOrganizationById(long id);
+    public Object getOrganizationById(long id);
 
     public void updateOrganization(OrganizationDto organizationDto);
 

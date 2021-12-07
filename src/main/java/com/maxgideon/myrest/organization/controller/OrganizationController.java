@@ -21,15 +21,16 @@ public class OrganizationController {
 
     @Validated({Marker.ListObject.class})
     @PostMapping("/list")
-    public List<OrganizationDto> showAllOrganizations(@RequestBody @Valid OrganizationDto organizationDto){
+    public Object showAllOrganizations(@RequestBody @Valid OrganizationDto organizationDto){
        return organizationService.getAllOrganization(organizationDto);
 
     }
 
     @GetMapping("/{id}")
-    public OrganizationDto getOrganizationById(@PathVariable Long id) {
-        return organizationService.getOrganizationById(id);
+    public Object getOrganizationById(@PathVariable Long id) {
+        return  organizationService.getOrganizationById(id);
     }
+
     @Validated({Marker.SaveObject.class})
     @PostMapping("/save")
     public void saveOrganization(@RequestBody @Valid OrganizationDto organizationDto){

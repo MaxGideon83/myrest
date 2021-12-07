@@ -8,10 +8,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
-@Validated
+
 @RestController
+@Validated
 @RequestMapping("api/user")
 public class UserController {
 
@@ -20,12 +20,12 @@ public class UserController {
 
     @Validated({Marker.ListObject.class})
     @PostMapping("/list")
-    public List<UserDto> showAllUser(@RequestBody @Valid UserDto userDto){
+    public Object showAllUser(@RequestBody @Valid UserDto userDto){
         return userService.getAllUser(userDto);
     }
 
     @GetMapping("/{id}")
-    public UserDto getUserById(@PathVariable long id){
+    public Object getUserById(@PathVariable long id){
         return userService.getUserById(id);
     }
 
