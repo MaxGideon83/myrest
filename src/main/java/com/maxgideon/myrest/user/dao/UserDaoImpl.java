@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
@@ -183,4 +184,17 @@ public class UserDaoImpl implements UserDao {
 
     };
 
+    @Override
+    public List<DocumentsType> getAllDocumentsType() {
+        Query query = em.createQuery("from DocumentsType");
+        List<DocumentsType> docList = query.getResultList();
+        return docList;
+    }
+
+    @Override
+    public List<Countries> getAllCountries() {
+        Query query = em.createQuery("from Countries");
+        List<Countries> contList = query.getResultList();
+        return contList;
+    }
 }

@@ -9,4 +9,6 @@ public interface UserService {
     public Object getUserById(long id);
     public void saveUser(UserDto userDto);
     public void updateUser(UserDto userDto);
+    public Object showAllDocumentsType();
+    public Object showAllCountries();
 }

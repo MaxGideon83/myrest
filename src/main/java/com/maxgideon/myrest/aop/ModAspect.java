@@ -58,4 +58,13 @@ public class ModAspect {
         return dataObject;
     }
 
+    @Around("execution(* com.maxgideon.myrest.user.service.UserServiceImpl.showAll*())")
+    public Object aroundGetAllDocumentsTypeOrCountriesAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
+
+        Object targetMethodResult = proceedingJoinPoint.proceed();
+        dataObject.setData(targetMethodResult);
+        return dataObject;
+    }
+
+
 }

@@ -12,33 +12,43 @@ import javax.validation.Valid;
 
 @RestController
 @Validated
-@RequestMapping("api/user")
+@RequestMapping("api")
 public class UserController {
 
     @Autowired
     UserService userService;
 
     @Validated({Marker.ListObject.class})
-    @PostMapping("/list")
+    @PostMapping("/user/list")
     public Object showAllUser(@RequestBody @Valid UserDto userDto){
         return userService.getAllUser(userDto);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/user/{id}")
     public Object getUserById(@PathVariable long id){
         return userService.getUserById(id);
     }
 
     @Validated({Marker.SaveObject.class})
-    @PostMapping("/save")
+    @PostMapping("/user/save")
     public void saveUser(@RequestBody @Valid UserDto userDto){
         userService.saveUser(userDto);
     }
 
     @Validated({Marker.UpdateObject.class})
-    @PostMapping("/update")
+    @PostMapping("/user/update")
     public void updateUser(@RequestBody @Valid UserDto userDto){
         userService.updateUser(userDto);
+    }
+
+    @PostMapping("/docs")
+    public Object showAllDocumentsType(){
+        return userService.showAllDocumentsType();
+    }
+
+    @PostMapping("/countries")
+    public Object showAllCountries(){
+        return userService.showAllCountries();
     }
 
 }
