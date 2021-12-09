@@ -2,7 +2,6 @@ package com.maxgideon.myrest.user.service;
 
 import com.maxgideon.myrest.user.dao.UserDao;
 import com.maxgideon.myrest.user.entity.User;
-import com.maxgideon.myrest.user.entity.references.DocumentsType;
 import com.maxgideon.myrest.user.service.data.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
