@@ -1,10 +1,13 @@
 package com.maxgideon.myrest.organization.controller;
 
 
+import com.maxgideon.myrest.exception.ResponseResult;
 import com.maxgideon.myrest.organization.service.OrganizationService;
 import com.maxgideon.myrest.validation.Marker;
 import com.maxgideon.myrest.organization.service.data.OrganizationDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,15 +36,16 @@ public class OrganizationController {
 
     @Validated({Marker.SaveObject.class})
     @PostMapping("/save")
-    public void saveOrganization(@RequestBody @Valid OrganizationDto organizationDto){
+    public ResponseEntity<ResponseResult> saveOrganization(@RequestBody @Valid OrganizationDto organizationDto){
         organizationService.saveOrganization(organizationDto);
-
+        return new ResponseEntity<>(new ResponseResult("success"), HttpStatus.OK);
     }
+
     @Validated({Marker.UpdateObject.class})
     @PostMapping("/update")
-    public void updateOrganizations(@RequestBody @Valid OrganizationDto organizationDto){
+    public ResponseEntity<ResponseResult> updateOrganizations(@RequestBody @Valid OrganizationDto organizationDto){
         organizationService.updateOrganization(organizationDto);
-
+        return new ResponseEntity<>(new ResponseResult("success"), HttpStatus.OK);
     }
 
 

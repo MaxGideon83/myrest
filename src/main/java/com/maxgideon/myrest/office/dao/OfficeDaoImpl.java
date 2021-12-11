@@ -43,12 +43,18 @@ public class OfficeDaoImpl implements OfficeDao{
         }
         criteriaQuery.where(criteria);
         List<Office> allOffice = em.createQuery(criteriaQuery).getResultList();
+        if(allOffice.isEmpty()){
+            throw new NoResultException("Офисов с такими параметрами не найдено");
+        }
         return allOffice;
     }
 
     @Override
     public Office getOfficeById(long id) {
         Office office = em.find(Office.class, id);
+        if(office == null){
+            throw new NoResultException("Офиса с таким id не найдено");
+        }
         return office;
     }
 
@@ -60,7 +66,7 @@ public class OfficeDaoImpl implements OfficeDao{
         if(organization != null) {
             office.setOrg(organization);
         }else{
-            throw new NoResultException();
+            throw new NoResultException("Организации с таким orgId не существует");
         }
         em.persist(office);
     }
@@ -68,6 +74,9 @@ public class OfficeDaoImpl implements OfficeDao{
     @Override
     public void updateOffice(OfficeDto officeDto) {
         Office office = em.find(Office.class, officeDto.getId());
+        if(office == null){
+            throw new NoResultException("Офиса с таким id не найдено");
+        }
         office.officeUpdate(officeDto);
     }
 }

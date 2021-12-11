@@ -9,33 +9,34 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolationException;
 
 @ControllerAdvice
 public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<Response> handleConstraintViolationException(ConstraintViolationException cve) {
+    public ResponseEntity<ResponseError> handleConstraintViolationException(ConstraintViolationException cve) {
         StringBuilder responseStr = new StringBuilder();
         String[] spl = cve.getMessage().split(",");
-        if (spl != null){
-            for(int i = 0; i < spl.length; i++){
+        for(int i = 0; i < spl.length; i++){
                 String[] part = spl[i].split("\\.");
                 responseStr.append(part[part.length-1]);
                 responseStr.append(", ");
-            }
-            responseStr.setLength(responseStr.length()-2);
-        }else{
-            String[] part = cve.getMessage().split("\\.");
-            responseStr.append(part[part.length-1]);
         }
-        Response response = new Response(responseStr.toString());
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        responseStr.setLength(responseStr.length()-2);
+        ResponseError responseError = new ResponseError(responseStr.toString());
+        return new ResponseEntity<>(responseError, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(NoResultException.class)
+    public ResponseEntity<ResponseError> handleNoResultException(NoResultException nre){
+        ResponseError responseError = new ResponseError(nre.getMessage());
+        return new ResponseEntity<>(responseError,HttpStatus.BAD_REQUEST);
     }
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        Response response = new Response("Не правильный JSON");
-        return new ResponseEntity<>(response, status);
+        ResponseError responseError = new ResponseError("Не правильный JSON");
+        return new ResponseEntity<>(responseError, status);
     }
 }

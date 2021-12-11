@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -38,12 +39,18 @@ public class OrganizationDaoImpl implements OrganizationDao {
         }
         criteriaQuery.where(criteria);
         List<Organization> allOrganization = em.createQuery(criteriaQuery).getResultList();
+        if(allOrganization.isEmpty()){
+            throw new NoResultException("Организаций с такими параметрами не найдено");
+        }
         return allOrganization;
     }
 
     @Override
     public Organization getOrganizationById(long id) {
         Organization organization = em.find(Organization.class, id);
+        if (organization == null) {
+            throw new NoResultException("Организации с таким Id не найдено");
+        }
         return organization;
     }
 
@@ -57,6 +64,9 @@ public class OrganizationDaoImpl implements OrganizationDao {
     @Override
     public void updateOrganization(OrganizationDto organizationDto) {
         Organization organization = em.find(Organization.class, organizationDto.getId());
+        if (organization == null) {
+            throw new NoResultException("Организации с таким Id не найдено");
+        }
         organization.organizationUpdate(organizationDto);
     }
 }

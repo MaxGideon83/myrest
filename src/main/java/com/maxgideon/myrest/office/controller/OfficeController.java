@@ -1,9 +1,12 @@
 package com.maxgideon.myrest.office.controller;
 
+import com.maxgideon.myrest.exception.ResponseResult;
 import com.maxgideon.myrest.office.service.OfficeService;
 import com.maxgideon.myrest.office.service.data.OfficeDto;
 import com.maxgideon.myrest.validation.Marker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,14 +34,16 @@ public class OfficeController {
 
     @Validated({Marker.SaveObject.class})
     @PostMapping("/save")
-    public void saveOffice(@RequestBody @Valid OfficeDto officeDto){
+    public ResponseEntity<ResponseResult> saveOffice(@RequestBody @Valid OfficeDto officeDto){
         officeService.saveOffice(officeDto);
+        return new ResponseEntity<>(new ResponseResult("success"), HttpStatus.OK);
     }
 
     @Validated({Marker.UpdateObject.class})
     @PostMapping("/update")
-    public void updateOffice(@RequestBody @Valid OfficeDto officeDto){
+    public ResponseEntity<ResponseResult> updateOffice(@RequestBody @Valid OfficeDto officeDto){
         officeService.updateOffice(officeDto);
+        return new ResponseEntity<>(new ResponseResult("success"), HttpStatus.OK);
     }
 
 }

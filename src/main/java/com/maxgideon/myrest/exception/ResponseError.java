@@ -1,13 +1,13 @@
 package com.maxgideon.myrest.exception;
 
-public class Response {
+public class ResponseError {
 
     private String error;
 
-    public Response() {
+    public ResponseError() {
     }
 
-    public Response(String error) {
+    public ResponseError(String error) {
         this.error = error;
     }
 

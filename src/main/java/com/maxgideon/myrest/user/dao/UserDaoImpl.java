@@ -62,12 +62,18 @@ public class UserDaoImpl implements UserDao {
 
         cq.where(criteria);
         List<User> allUser = em.createQuery(cq).getResultList();
+        if(allUser.isEmpty()){
+            throw new NoResultException("Пользователей с такими параметрами не найдено");
+        }
         return allUser;
 
     };
 
     public User getUserById(long id) {
         User user = em.find(User.class, id);
+        if(user==null){
+            throw new NoResultException("Пользователя с такими id не найдено");
+        }
         return user;
 
     };
@@ -83,9 +89,13 @@ public class UserDaoImpl implements UserDao {
 
                 TypedQuery<DocumentsType> query = em.createQuery(
                         "SELECT d FROM DocumentsType d WHERE d.docCode = :docCode OR d.docName = :docName", DocumentsType.class);
-                documentsType = query.setParameter("docCode", userDto.getDocCode())
-                        .setParameter("docName", userDto.getDocName())
-                        .getSingleResult();
+                try {
+                    documentsType = query.setParameter("docCode", userDto.getDocCode())
+                            .setParameter("docName", userDto.getDocName())
+                            .getSingleResult();
+                }catch(NoResultException nre){
+                    throw new NoResultException("Тип документа с таким docCode и/или docName не найден ");
+                }
                 documents = new Documents();
                 documents.setDocType(documentsType);
 
@@ -105,7 +115,11 @@ public class UserDaoImpl implements UserDao {
 
                 TypedQuery<Countries> query = em.createQuery(
                         "SELECT d FROM Countries d WHERE d.citizenshipCode = :citizenshipCode", Countries.class);
-                countries = query.setParameter("citizenshipCode", userDto.getCitizenshipCode()).getSingleResult();
+                try {
+                    countries = query.setParameter("citizenshipCode", userDto.getCitizenshipCode()).getSingleResult();
+                }catch(NoResultException nre) {
+                    throw new NoResultException("Страна с таким citizenshipCode не найдена");
+                }
                 user.setCountries(countries);
         }
 
@@ -117,28 +131,28 @@ public class UserDaoImpl implements UserDao {
         if(office != null) {
             user.setOffice(office);
         }else{
-            throw new NoResultException();
+            throw new NoResultException("Офиса с таким officeId не найдено");
         }
         em.persist(user);
 
     };
 
-
-
-
     public void updateUser(UserDto userDto){
 
         User user = em.find(User.class, userDto.getId());
+        if(user == null){
+            throw new NoResultException("Пользователя с таким id не существует");
+        }
         user.userUpdate(userDto);
         Documents documents = user.getDocuments();
 
 
-        if(userDto.getOfficeId() != 0){
+        if(userDto.getOfficeId() != null){
             Office office = em.find(Office.class, userDto.getOfficeId());
             if(office != null) {
                 user.setOffice(office);
             }else{
-                throw new NoResultException();
+                throw new NoResultException("Пользователя с таким officeId не существует");
             }
         }
         if(userDto.getDocNumber() != null){
@@ -162,15 +176,25 @@ public class UserDaoImpl implements UserDao {
 
         }
         if(userDto.getCitizenshipCode() != null){
+            Countries countries = null;
             TypedQuery<Countries> query = em.createQuery(
                     "SELECT d FROM Countries d WHERE d.citizenshipCode = :citizenshipCode", Countries.class);
-            Countries countries = query.setParameter("citizenshipCode", userDto.getCitizenshipCode()).getSingleResult();
+            try {
+                countries = query.setParameter("citizenshipCode", userDto.getCitizenshipCode()).getSingleResult();
+            }catch(NoResultException nre){
+                throw new NoResultException("Страна с таким citizenshipCode не найдена");
+            }
             user.setCountries(countries);
         }
         if(userDto.getDocName() != null){
+            DocumentsType documentsType = null;
             TypedQuery<DocumentsType> query = em.createQuery(
                     "SELECT d FROM DocumentsType d WHERE d.docName = :docName", DocumentsType.class);
-            DocumentsType documentsType = query.setParameter("docName", userDto.getDocName()).getSingleResult();
+            try {
+                documentsType = query.setParameter("docName", userDto.getDocName()).getSingleResult();
+            }catch(NoResultException nre){
+                throw new NoResultException("Тип документа с таким docName не найден ");
+            }
             if (documents != null) {
                 documents.setDocType(documentsType);
             }else{
