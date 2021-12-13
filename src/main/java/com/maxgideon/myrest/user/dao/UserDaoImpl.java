@@ -6,6 +6,8 @@ import com.maxgideon.myrest.user.entity.User;
 import com.maxgideon.myrest.user.entity.references.Countries;
 import com.maxgideon.myrest.user.entity.references.DocumentsType;
 import com.maxgideon.myrest.user.service.data.UserDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,12 +19,15 @@ import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
 import java.util.List;
 
+
 @Transactional
 @Repository
 public class UserDaoImpl implements UserDao {
 
     @Autowired
     EntityManager em;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserDaoImpl.class);
 
     public List<User> getAllUser(UserDto userDto) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -94,6 +99,7 @@ public class UserDaoImpl implements UserDao {
                             .setParameter("docName", userDto.getDocName())
                             .getSingleResult();
                 }catch(NoResultException nre){
+                    LOGGER.info(nre.getMessage());
                     throw new NoResultException("Тип документа с таким docCode и/или docName не найден ");
                 }
                 documents = new Documents();
@@ -118,6 +124,7 @@ public class UserDaoImpl implements UserDao {
                 try {
                     countries = query.setParameter("citizenshipCode", userDto.getCitizenshipCode()).getSingleResult();
                 }catch(NoResultException nre) {
+                    LOGGER.info(nre.getMessage());
                     throw new NoResultException("Страна с таким citizenshipCode не найдена");
                 }
                 user.setCountries(countries);
@@ -182,6 +189,7 @@ public class UserDaoImpl implements UserDao {
             try {
                 countries = query.setParameter("citizenshipCode", userDto.getCitizenshipCode()).getSingleResult();
             }catch(NoResultException nre){
+                LOGGER.info(nre.getMessage());
                 throw new NoResultException("Страна с таким citizenshipCode не найдена");
             }
             user.setCountries(countries);
@@ -193,6 +201,7 @@ public class UserDaoImpl implements UserDao {
             try {
                 documentsType = query.setParameter("docName", userDto.getDocName()).getSingleResult();
             }catch(NoResultException nre){
+                LOGGER.info(nre.getMessage());
                 throw new NoResultException("Тип документа с таким docName не найден ");
             }
             if (documents != null) {
