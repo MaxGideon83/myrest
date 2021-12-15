@@ -75,12 +75,8 @@ public class UserDaoImpl implements UserDao {
     };
 
     public User getUserById(long id) {
-        User user = em.find(User.class, id);
-        if(user==null){
-            throw new NoResultException("Пользователя с такими id не найдено");
-        }
+        User user = checkUser(id);
         return user;
-
     };
 
 
@@ -89,24 +85,9 @@ public class UserDaoImpl implements UserDao {
         User user = new User();
         userDto.userUpdate(user);
         Documents documents = null;
-        DocumentsType documentsType = null;
         Countries countries = null;
         if (userDto.getDocCode() != null || userDto.getDocName() != null) {
-
-
-                TypedQuery<DocumentsType> query = em.createQuery(
-                        "SELECT d FROM DocumentsType d WHERE d.docCode = :docCode OR d.docName = :docName", DocumentsType.class);
-                try {
-                    documentsType = query.setParameter("docCode", userDto.getDocCode())
-                            .setParameter("docName", userDto.getDocName())
-                            .getSingleResult();
-                }catch(NoResultException nre){
-                    LOGGER.info(nre.getMessage());
-                    throw new NoResultException("Тип документа с таким docCode и/или docName не найден ");
-                }
-                documents = new Documents();
-                documents.setDocType(documentsType);
-
+               documents = addDocumentType(userDto,documents);
         }
         if (userDto.getDocDate() != null || userDto.getDocNumber() != null) {
             if (documents != null) {
@@ -117,52 +98,27 @@ public class UserDaoImpl implements UserDao {
                 documents.setDocDate(userDto.getDocDate());
                 documents.setDocNumber(userDto.getDocNumber());
             }
-
         }
         if (userDto.getCitizenshipCode() != null) {
-
-                TypedQuery<Countries> query = em.createQuery(
-                        "SELECT d FROM Countries d WHERE d.citizenshipCode = :citizenshipCode", Countries.class);
-                try {
-                    countries = query.setParameter("citizenshipCode", userDto.getCitizenshipCode()).getSingleResult();
-                }catch(NoResultException nre) {
-                    LOGGER.info(nre.getMessage());
-                    throw new NoResultException("Страна с таким citizenshipCode не найдена");
-                }
+                countries = addCountries(userDto);
                 user.setCountries(countries);
         }
-
         if(documents != null){
             user.setDocuments(documents);
         }
-
-        Office office = em.find(Office.class, userDto.getOfficeId());
-        if(office != null) {
-            user.setOffice(office);
-        }else{
-            throw new NoResultException("Офиса с таким officeId не найдено");
-        }
+        Office office = checkOffice(userDto);
+        user.setOffice(office);
         em.persist(user);
-
     };
+
     @Transactional
     public void updateUser(UserDto userDto){
-
-        User user = em.find(User.class, userDto.getId());
-        if(user == null){
-            throw new NoResultException("Пользователя с таким id не существует");
-        }
+        User user = checkUser(userDto.getId());
         userDto.userUpdate(user);
         Documents documents = user.getDocuments();
-
-
         if(userDto.getOfficeId() != null){
-            Office office = em.find(Office.class, userDto.getOfficeId());
-            if(office != null) {
-                user.setOffice(office);
-            }else{
-                throw new NoResultException("Пользователя с таким officeId не существует");
-            }
+            Office office = checkOffice(userDto);
+            user.setOffice(office);
         }
         if(userDto.getDocNumber() != null){
             if(documents != null){
@@ -172,7 +128,6 @@ public class UserDaoImpl implements UserDao {
                 documents.setDocNumber(userDto.getDocNumber());
                 user.setDocuments(documents);
             }
-
         }
         if(userDto.getDocDate() != null){
             if(documents != null){
@@ -182,41 +137,15 @@ public class UserDaoImpl implements UserDao {
                 documents.setDocDate(userDto.getDocDate());
                 user.setDocuments(documents);
             }
-
         }
         if(userDto.getCitizenshipCode() != null){
-            Countries countries = null;
-            TypedQuery<Countries> query = em.createQuery(
-                    "SELECT d FROM Countries d WHERE d.citizenshipCode = :citizenshipCode", Countries.class);
-            try {
-                countries = query.setParameter("citizenshipCode", userDto.getCitizenshipCode()).getSingleResult();
-            }catch(NoResultException nre){
-                LOGGER.info(nre.getMessage());
-                throw new NoResultException("Страна с таким citizenshipCode не найдена");
-            }
+            Countries countries = addCountries(userDto);
             user.setCountries(countries);
         }
         if(userDto.getDocName() != null){
-            DocumentsType documentsType = null;
-            TypedQuery<DocumentsType> query = em.createQuery(
-                    "SELECT d FROM DocumentsType d WHERE d.docName = :docName", DocumentsType.class);
-            try {
-                documentsType = query.setParameter("docName", userDto.getDocName()).getSingleResult();
-            }catch(NoResultException nre){
-                LOGGER.info(nre.getMessage());
-                throw new NoResultException("Тип документа с таким docName не найден ");
-            }
-            if (documents != null) {
-                documents.setDocType(documentsType);
-            }else{
-                documents = new Documents();
-                documents.setDocType(documentsType);
-                user.setDocuments(documents);
-            }
-
+            documents = addDocumentType(userDto, documents);
+            user.setDocuments(documents);
         }
-
-
     };
 
     @Override
@@ -233,5 +162,51 @@ public class UserDaoImpl implements UserDao {
         return contList;
     }
 
+    private Documents addDocumentType(UserDto userDto, Documents documents){
+        DocumentsType documentsType = null;
+        TypedQuery<DocumentsType> query = em.createQuery(
+                "SELECT d FROM DocumentsType d WHERE d.docCode = :docCode OR d.docName = :docName", DocumentsType.class);
+        try {
+            documentsType = query.setParameter("docCode", userDto.getDocCode())
+                    .setParameter("docName", userDto.getDocName())
+                    .getSingleResult();
+        }catch(NoResultException nre){
+            LOGGER.info(nre.getMessage());
+            throw new NoResultException("Тип документа с таким docCode и/или docName не найден ");
+        }
+        if(documents != null){
+            documents.setDocType(documentsType);
+        }else {
+            documents = new Documents();
+            documents.setDocType(documentsType);
+        }
+        return documents;
+    }
+    private Countries addCountries(UserDto userDto){
+        Countries countries = null;
+        TypedQuery<Countries> query = em.createQuery(
+                "SELECT d FROM Countries d WHERE d.citizenshipCode = :citizenshipCode", Countries.class);
+        try {
+            countries = query.setParameter("citizenshipCode", userDto.getCitizenshipCode()).getSingleResult();
+        }catch(NoResultException nre) {
+            LOGGER.info(nre.getMessage());
+            throw new NoResultException("Страна с таким citizenshipCode не найдена");
+        }
+        return countries;
+    }
 
+    private Office checkOffice(UserDto userDto){
+        Office office = em.find(Office.class, userDto.getOfficeId());
+        if(office == null) {
+            throw new NoResultException("Офиса с таким officeId не существует");
+        }
+        return office;
+    }
+    private User checkUser(Long id){
+        User user = em.find(User.class, id);
+        if(user==null){
+            throw new NoResultException("Пользователя с такими id не найдено");
+        }
+        return user;
+    }
 }
