@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.maxgideon.myrest.office.entity.Office;
 import com.maxgideon.myrest.user.entity.references.Countries;
-import com.maxgideon.myrest.user.service.data.UserDto;
+
 
 import javax.persistence.*;
 
@@ -22,22 +22,22 @@ public class User {
     @Version
     private Integer version;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false, length = 30)
     private String firstName;
 
-    @Column(name = "second_name")
+    @Column(name = "second_name", length = 30)
     private String secondName;
 
-    @Column(name = "middle_name")
+    @Column(name = "middle_name", length = 30)
     private String middleName;
 
-    @Column(name = "position")
+    @Column(name = "position", nullable = false, length = 30)
     private String position;
 
-    @Column(name = "phone")
+    @Column(name = "phone", length = 30)
     private String phone;
 
-    @Column(name = "is_identified")
+    @Column(name = "is_identified", length = 6)
     private String isIdentified;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")

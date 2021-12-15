@@ -37,10 +37,10 @@ CREATE TABLE IF NOT EXISTS office (
 
 CREATE TABLE IF NOT EXISTS user (
   id int NOT NULL AUTO_INCREMENT,
-  first_name varchar(30),
+  first_name varchar(30) NOT NULL,
   second_name varchar(30),
   middle_name varchar(30),
-  position varchar(30),
+  position varchar(30) NOT NULL,
   phone varchar(30),
   is_identified varchar(6),
   countries_id int,
