@@ -1,7 +1,6 @@
 package com.maxgideon.myrest.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.maxgideon.myrest.user.entity.references.DocumentsType;
 
 import javax.persistence.*;
@@ -11,17 +10,16 @@ import javax.persistence.*;
 public class Documents {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 
     @Version
     private Integer version;
 
-    @Column(name = "doc_number")
+    @Column(name = "doc_number", length = 30)
     private String docNumber;
 
-    @Column(name = "doc_date")
+    @Column(name = "doc_date", length = 15)
     private String docDate;
 
     @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
@@ -30,11 +28,10 @@ public class Documents {
 
     @OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "user_id")
+    @MapsId
     @JsonBackReference
     private User user;
 
-    public Documents() {
-    }
 
     public long getId() {
         return id;

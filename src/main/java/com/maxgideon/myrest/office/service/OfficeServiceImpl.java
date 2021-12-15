@@ -16,7 +16,7 @@ public class OfficeServiceImpl implements OfficeService {
     OfficeDao officeDao;
 
     @Override
-    public Object getAllOffice(OfficeDto officeDto) {
+    public List<OfficeDto> getAllOffice(OfficeDto officeDto) {
         List<Office> list = officeDao.getAllOffice(officeDto);
         List<OfficeDto> listDto = new ArrayList<>();
         for(Office of: list){
@@ -26,7 +26,7 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
-    public Object getOfficeById(long id) {
+    public OfficeDto getOfficeById(long id) {
         Office office = officeDao.getOfficeById(id);
         OfficeDto officeDto = new OfficeDto(office);
         return officeDto;

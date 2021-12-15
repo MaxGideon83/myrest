@@ -14,15 +14,13 @@ public class Countries {
     @Version
     private Integer version;
 
-    @Column(name = "citizenship_name", unique = true)
+    @Column(name = "citizenship_name", unique = true, length = 30)
     private String citizenshipName;
 
-    @Column(name = "citizenship_code", unique = true)
+    @Column(name = "citizenship_code", unique = true, length = 15)
     private String citizenshipCode;
 
-    public Countries() {
 
-    }
 
     public long getId() {
         return id;

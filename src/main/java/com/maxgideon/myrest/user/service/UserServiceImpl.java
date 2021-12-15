@@ -2,6 +2,8 @@ package com.maxgideon.myrest.user.service;
 
 import com.maxgideon.myrest.user.dao.UserDao;
 import com.maxgideon.myrest.user.entity.User;
+import com.maxgideon.myrest.user.entity.references.Countries;
+import com.maxgideon.myrest.user.entity.references.DocumentsType;
 import com.maxgideon.myrest.user.service.data.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,7 @@ public class UserServiceImpl implements UserService{
     @Autowired
     UserDao userDao;
 
-    public Object getAllUser(UserDto userDto){
+    public List<UserDto> getAllUser(UserDto userDto){
         List<User> list = userDao.getAllUser(userDto);
         List<UserDto> listDto = new ArrayList<>();
         for(User us: list){
@@ -23,7 +25,7 @@ public class UserServiceImpl implements UserService{
         }
         return listDto;
     };
-    public Object getUserById(long id){
+    public UserDto getUserById(long id){
           User user = userDao.getUserById(id);
           UserDto userDto = new UserDto(user);
           return userDto;
@@ -37,12 +39,12 @@ public class UserServiceImpl implements UserService{
     };
 
     @Override
-    public Object showAllDocumentsType() {
+    public List<DocumentsType> showAllDocumentsType() {
         return userDao.getAllDocumentsType();
     }
 
     @Override
-    public Object showAllCountries() {
+    public List<Countries> showAllCountries() {
         return userDao.getAllCountries();
     }
 }

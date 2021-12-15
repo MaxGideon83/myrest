@@ -15,7 +15,6 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
-@Transactional
 public class OrganizationDaoImpl implements OrganizationDao {
 
     @Autowired
@@ -54,19 +53,21 @@ public class OrganizationDaoImpl implements OrganizationDao {
         return organization;
     }
 
+    @Transactional
     @Override
     public void saveOrganization(OrganizationDto organizationDto) {
         Organization organization = new Organization();
-        organization.organizationUpdate(organizationDto);
+        organizationDto.organizationUpdate(organization);
         em.persist(organization);
     }
 
+    @Transactional
     @Override
     public void updateOrganization(OrganizationDto organizationDto) {
         Organization organization = em.find(Organization.class, organizationDto.getId());
         if (organization == null) {
             throw new NoResultException("Организации с таким Id не найдено");
         }
-        organization.organizationUpdate(organizationDto);
+        organizationDto.organizationUpdate(organization);
     }
 }

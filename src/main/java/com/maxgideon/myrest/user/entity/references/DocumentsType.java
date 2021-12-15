@@ -17,15 +17,13 @@ public class DocumentsType {
     @Version
     private Integer version;
 
-    @Column(name = "doc_name", unique = true, nullable = false)
+    @Column(name = "doc_name", unique = true, nullable = false, length = 30)
     private String docName;
 
-    @Column(name = "doc_code", unique = true, nullable = false)
+    @Column(name = "doc_code", unique = true, nullable = false, length = 15)
     private String docCode;
 
 
-    public DocumentsType() {
-    }
 
     public long getId() {
         return id;

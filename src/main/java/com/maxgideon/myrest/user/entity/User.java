@@ -53,28 +53,7 @@ public class User {
     @JsonBackReference
     private Office office;
 
-    public User(){
 
-    }
-
-    public void userUpdate(UserDto userDto){
-        this.firstName = userDto.getFirstName();
-        if(userDto.getSecondName() != null) {
-            this.secondName = userDto.getSecondName();
-        }
-        if(userDto.getMiddleName() != null) {
-            this.middleName = userDto.getMiddleName();
-        }
-
-        this.position = userDto.getPosition();
-
-        if(userDto.getPhone() != null) {
-            this.phone = userDto.getPhone();
-        }
-        if(userDto.getIsIdentified() != null) {
-            this.isIdentified = userDto.getIsIdentified();
-        }
-    }
 
     public long getId() {
         return id;

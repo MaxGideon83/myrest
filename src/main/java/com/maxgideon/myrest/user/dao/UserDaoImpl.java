@@ -20,7 +20,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 
-@Transactional
+
 @Repository
 public class UserDaoImpl implements UserDao {
 
@@ -83,9 +83,11 @@ public class UserDaoImpl implements UserDao {
 
     };
 
+
+    @Transactional
     public void saveUser(UserDto userDto) {
         User user = new User();
-        user.userUpdate(userDto);
+        userDto.userUpdate(user);
         Documents documents = null;
         DocumentsType documentsType = null;
         Countries countries = null;
@@ -143,14 +145,14 @@ public class UserDaoImpl implements UserDao {
         em.persist(user);
 
     };
-
+    @Transactional
     public void updateUser(UserDto userDto){
 
         User user = em.find(User.class, userDto.getId());
         if(user == null){
             throw new NoResultException("Пользователя с таким id не существует");
         }
-        user.userUpdate(userDto);
+        userDto.userUpdate(user);
         Documents documents = user.getDocuments();
 
 
@@ -230,4 +232,6 @@ public class UserDaoImpl implements UserDao {
         List<Countries> contList = query.getResultList();
         return contList;
     }
+
+
 }

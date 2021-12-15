@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS documents_type (
   id int NOT NULL AUTO_INCREMENT,
-  doc_name varchar(30),
-  doc_code varchar(15),
+  doc_name varchar(30) NOT NULL,
+  doc_code varchar(15) NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -14,11 +14,11 @@ CREATE TABLE IF NOT EXISTS countries (
 
 CREATE TABLE IF NOT EXISTS organization (
   id int NOT NULL AUTO_INCREMENT,
-  name varchar(30),
-  full_name varchar(30),
-  inn varchar(30),
-  kpp varchar(30),
-  address varchar(60),
+  name varchar(30) NOT NULL,
+  full_name varchar(30) NOT NULL,
+  inn varchar(30) NOT NULL,
+  kpp varchar(30) NOT NULL,
+  address varchar(60) NOT NULL,
   phone varchar(30),
   is_active varchar(6),
   PRIMARY KEY (id)

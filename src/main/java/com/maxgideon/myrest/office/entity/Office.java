@@ -3,7 +3,6 @@ package com.maxgideon.myrest.office.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.maxgideon.myrest.office.service.data.OfficeDto;
 import com.maxgideon.myrest.organization.entity.Organization;
 import com.maxgideon.myrest.user.entity.User;
 
@@ -44,27 +43,6 @@ public class Office {
     @JsonManagedReference
     private List<User> users;
 
-
-    public Office() {
-
-    }
-    public void addUserToOffice(User user){
-        if(users==null){
-            users = new ArrayList<>();
-        }
-        users.add(user);
-        user.setOffice(this);
-    }
-    public void officeUpdate(OfficeDto officeDto){
-        this.name = officeDto.getName();
-        this.address = officeDto.getAddress();
-        if(officeDto.getPhone() != null) {
-            this.phone = officeDto.getPhone();
-        }
-        if(officeDto.getIsActive() != null) {
-            this.isActive = officeDto.getIsActive();
-        }
-    }
 
     public long getId() {
         return id;
@@ -119,5 +97,13 @@ public class Office {
         for(User user : users){
             user.setOffice(this);
         }
+    }
+
+    public void addUserToOffice(User user){
+        if(users==null){
+            users = new ArrayList<>();
+        }
+        users.add(user);
+        user.setOffice(this);
     }
 }

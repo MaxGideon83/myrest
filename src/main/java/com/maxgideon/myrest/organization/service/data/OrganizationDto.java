@@ -64,6 +64,20 @@ public class OrganizationDto {
         this.isActive = org.getIsActive();
     }
 
+    public void organizationUpdate(Organization organization){
+        organization.setName(this.getName());
+        organization.setFullName(this.getFullName());
+        organization.setInn(this.getInn());
+        organization.setKpp(this.getKpp());
+        organization.setAddress(this.getAddress());
+        if(this.getPhone()!= null) {
+            organization.setPhone(this.getPhone());
+        }
+        if(this.getIsActive() != null) {
+            organization.setIsActive(this.getIsActive());
+        }
+    }
+
     public Long getId() {
         return id;
     }

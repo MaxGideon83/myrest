@@ -87,6 +87,25 @@ public class UserDto {
         this.isIdentified = user.getIsIdentified();
     }
 
+    public void userUpdate(User user){
+        user.setFirstName(this.getFirstName());
+        if(this.getSecondName() != null) {
+            user.setSecondName(this.getSecondName());
+        }
+        if(this.getMiddleName() != null) {
+            user.setMiddleName(this.getMiddleName());
+        }
+
+        user.setPosition(this.getPosition());
+
+        if(this.getPhone() != null) {
+            user.setPhone(this.getPhone());
+        }
+        if(this.getIsIdentified() != null) {
+            user.setIsIdentified(this.getIsIdentified());
+        }
+    }
+
     public Long getId() {
         return id;
     }

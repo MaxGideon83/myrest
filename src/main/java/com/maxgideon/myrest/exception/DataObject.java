@@ -1,4 +1,4 @@
-package com.maxgideon.myrest.aop;
+package com.maxgideon.myrest.exception;
 
 import org.springframework.stereotype.Component;
 

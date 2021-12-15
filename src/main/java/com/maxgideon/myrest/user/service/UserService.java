@@ -1,14 +1,16 @@
 package com.maxgideon.myrest.user.service;
 
+import com.maxgideon.myrest.user.entity.references.Countries;
+import com.maxgideon.myrest.user.entity.references.DocumentsType;
 import com.maxgideon.myrest.user.service.data.UserDto;
 
 import java.util.List;
 
 public interface UserService {
-    public Object getAllUser(UserDto userDto);
-    public Object getUserById(long id);
+    public List<UserDto> getAllUser(UserDto userDto);
+    public UserDto getUserById(long id);
     public void saveUser(UserDto userDto);
     public void updateUser(UserDto userDto);
-    public Object showAllDocumentsType();
-    public Object showAllCountries();
+    public List<DocumentsType> showAllDocumentsType();
+    public List<Countries> showAllCountries();
 }

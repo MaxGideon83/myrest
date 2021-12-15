@@ -4,8 +4,6 @@ package com.maxgideon.myrest.office.service.data;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.maxgideon.myrest.office.entity.Office;
 import com.maxgideon.myrest.validation.Marker;
-
-
 import javax.validation.constraints.NotNull;
 
 
@@ -32,6 +30,7 @@ public class OfficeDto {
 
     public OfficeDto() {
     }
+
     public OfficeDto(Office of){
         this.id = of.getId();
         this.name = of.getName();
@@ -91,5 +90,16 @@ public class OfficeDto {
 
     public void setOrgId(Long orgId) {
         this.orgId = orgId;
+    }
+
+    public void officeUpdate(Office office){
+        office.setName(this.getName());
+        office.setAddress(this.getAddress());
+        if(this.getPhone() != null) {
+            office.setPhone(this.getPhone());
+        }
+        if(this.getIsActive() != null) {
+            office.setIsActive(this.getIsActive());
+        }
     }
 }

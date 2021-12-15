@@ -2,7 +2,6 @@ package com.maxgideon.myrest.organization.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.maxgideon.myrest.office.entity.Office;
-import com.maxgideon.myrest.organization.service.data.OrganizationDto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,62 +13,38 @@ public class Organization {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private long id;
 
     @Version
     private Integer version;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 30)
     private String name;
 
-    @Column(name = "full_name")
+    @Column(name = "full_name", nullable = false, length = 30)
     private String fullName;
 
-    @Column(name = "inn")
+    @Column(name = "inn", nullable = false, length = 30)
     private String inn;
 
-    @Column(name = "kpp")
+    @Column(name = "kpp", nullable = false, length = 30)
     private String kpp;
 
-    @Column(name = "address")
+    @Column(name = "address", nullable = false, length = 60)
     private String address;
 
-    @Column(name = "phone")
+    @Column(name = "phone", length = 30)
     private String phone;
 
-    @Column(name = "is_active")
+    @Column(name = "is_active", length = 6)
     private String isActive;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "org")
     @JsonManagedReference
     private List<Office> orgOffice;
 
-    public Organization() {
 
-    }
-
-    public void organizationUpdate(OrganizationDto organizationDto){
-        this.name = organizationDto.getName();
-        this.fullName = organizationDto.getFullName();
-        this.inn = organizationDto.getInn();
-        this.kpp = organizationDto.getKpp();
-        this.address = organizationDto.getAddress();
-        if(organizationDto.getPhone()!= null) {
-            this.phone = organizationDto.getPhone();
-        }
-        if(organizationDto.getIsActive() != null) {
-            this.isActive = organizationDto.getIsActive();
-        }
-    }
-
-    public void addOfficeToOrganization(Office of){
-        if(orgOffice==null){
-            orgOffice = new ArrayList<>();
-        }
-        orgOffice.add(of);
-        of.setOrg(this);
-    }
 
     public long getId() {
         return id;
@@ -141,6 +116,14 @@ public class Organization {
         for(Office of: orgOffice){
             of.setOrg(this);
         }
+    }
+
+    public void addOfficeToOrganization(Office of){
+        if(orgOffice==null){
+            orgOffice = new ArrayList<>();
+        }
+        orgOffice.add(of);
+        of.setOrg(this);
     }
 
 }

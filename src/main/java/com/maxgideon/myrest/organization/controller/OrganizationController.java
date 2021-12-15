@@ -10,9 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
+
 
 @RestController
 @Validated
@@ -24,28 +24,26 @@ public class OrganizationController {
 
     @Validated({Marker.ListObject.class})
     @PostMapping("/list")
-    public Object showAllOrganizations(@RequestBody @Valid OrganizationDto organizationDto){
+    public List<OrganizationDto> showAllOrganizations(@RequestBody @Valid OrganizationDto organizationDto){
        return organizationService.getAllOrganization(organizationDto);
 
     }
 
     @GetMapping("/{id}")
-    public Object getOrganizationById(@PathVariable Long id) {
+    public OrganizationDto getOrganizationById(@PathVariable Long id) {
         return  organizationService.getOrganizationById(id);
     }
 
     @Validated({Marker.SaveObject.class})
     @PostMapping("/save")
-    public ResponseEntity<ResponseResult> saveOrganization(@RequestBody @Valid OrganizationDto organizationDto){
+    public void saveOrganization(@RequestBody @Valid OrganizationDto organizationDto){
         organizationService.saveOrganization(organizationDto);
-        return new ResponseEntity<>(new ResponseResult("success"), HttpStatus.OK);
     }
 
     @Validated({Marker.UpdateObject.class})
     @PostMapping("/update")
-    public ResponseEntity<ResponseResult> updateOrganizations(@RequestBody @Valid OrganizationDto organizationDto){
+    public void updateOrganizations(@RequestBody @Valid OrganizationDto organizationDto){
         organizationService.updateOrganization(organizationDto);
-        return new ResponseEntity<>(new ResponseResult("success"), HttpStatus.OK);
     }
 
 

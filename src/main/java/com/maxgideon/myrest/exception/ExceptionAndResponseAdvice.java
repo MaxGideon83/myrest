@@ -1,19 +1,24 @@
 package com.maxgideon.myrest.exception;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.MethodParameter;
+import org.springframework.http.*;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
 import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolationException;
 
-@ControllerAdvice
-public class ExceptionAdvice extends ResponseEntityExceptionHandler {
+
+
+@RestControllerAdvice
+public class ExceptionAndResponseAdvice extends ResponseEntityExceptionHandler implements ResponseBodyAdvice<Object> {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ResponseError> handleConstraintViolationException(ConstraintViolationException cve) {
@@ -38,5 +43,29 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         ResponseError responseError = new ResponseError("Не правильный JSON");
         return new ResponseEntity<>(responseError, status);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        ResponseError responseError = new ResponseError(ex.getMessage());
+        return new ResponseEntity<>(responseError,status);
+    }
+
+    @Override
+    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
+        return true;
+    }
+
+    @Override
+    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+        if(body instanceof ResponseError || body instanceof ResponseResult){
+            return body;
+        }
+        if(body == null){
+            return new ResponseResult("success");
+        }
+        DataObject dataObject = new DataObject();
+        dataObject.setData(body);
+        return dataObject;
     }
 }

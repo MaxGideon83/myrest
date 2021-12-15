@@ -61,7 +61,7 @@ public class OfficeDaoImpl implements OfficeDao{
     @Override
     public void saveOffice(OfficeDto officeDto) {
         Office office = new Office();
-        office.officeUpdate(officeDto);
+        officeDto.officeUpdate(office);
         Organization organization = em.find(Organization.class, officeDto.getOrgId());
         if(organization != null) {
             office.setOrg(organization);
@@ -77,6 +77,6 @@ public class OfficeDaoImpl implements OfficeDao{
         if(office == null){
             throw new NoResultException("Офиса с таким id не найдено");
         }
-        office.officeUpdate(officeDto);
+        officeDto.officeUpdate(office);
     }
 }
