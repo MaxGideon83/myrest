@@ -1,14 +1,11 @@
 package com.maxgideon.myrest.user.controller;
 
-import com.maxgideon.myrest.exception.ResponseResult;
 import com.maxgideon.myrest.user.entity.references.Countries;
 import com.maxgideon.myrest.user.entity.references.DocumentsType;
 import com.maxgideon.myrest.user.service.UserService;
 import com.maxgideon.myrest.user.service.data.UserDto;
 import com.maxgideon.myrest.validation.Marker;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package com.maxgideon.myrest.exception;
+package com.maxgideon.myrest.advice;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.http.*;

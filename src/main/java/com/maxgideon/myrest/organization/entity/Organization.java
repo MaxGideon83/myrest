@@ -7,6 +7,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Организация
+ */
 @Entity
 @Table(name = "organization")
 public class Organization {
@@ -15,28 +18,44 @@ public class Organization {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long id;
-
+    /**
+     * Служебное поле hibernate
+     */
     @Version
     private Integer version;
-
+    /**
+     * Имя
+     */
     @Column(name = "name", nullable = false, length = 30)
     private String name;
-
+    /**
+     * Полное Имя
+     */
     @Column(name = "full_name", nullable = false, length = 30)
     private String fullName;
-
+    /**
+     * ИНН
+     */
     @Column(name = "inn", nullable = false, length = 30)
     private String inn;
-
+    /**
+     * КПП
+     */
     @Column(name = "kpp", nullable = false, length = 30)
     private String kpp;
-
+    /**
+     * Адрес
+     */
     @Column(name = "address", nullable = false, length = 60)
     private String address;
-
+    /**
+     * Телефон
+     */
     @Column(name = "phone", length = 30)
     private String phone;
-
+    /**
+     * Активность
+     */
     @Column(name = "is_active", length = 6)
     private String isActive;
 

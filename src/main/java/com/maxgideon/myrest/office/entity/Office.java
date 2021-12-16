@@ -10,6 +10,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Офис
+ */
 @Entity
 @Table(name="office")
 public class Office {
@@ -18,19 +21,29 @@ public class Office {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-
+    /**
+     * Служебное поле hibernate
+     */
     @Version
     private Integer version;
-
+    /**
+     * Название офиса
+     */
     @Column(name = "name")
     private String name;
-
+    /**
+     * Адрес
+     */
     @Column(name = "address")
     private String address;
-
+    /**
+     * Телефон
+     */
     @Column(name = "phone")
     private String phone;
-
+    /**
+     * Активность
+     */
     @Column(name = "is_active")
     private String isActive;
 

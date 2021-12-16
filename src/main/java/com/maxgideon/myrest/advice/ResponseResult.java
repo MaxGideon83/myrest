@@ -1,5 +1,8 @@
-package com.maxgideon.myrest.exception;
+package com.maxgideon.myrest.advice;
 
+/**
+ * Класс обертка для возвращения сообщения пользователю в случае успешного сохранения и обновления данных в БД
+ */
 public class ResponseResult {
 
     private String result;

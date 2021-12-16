@@ -4,7 +4,9 @@ package com.maxgideon.myrest.user.entity.references;
 
 import javax.persistence.*;
 
-
+/**
+ * Тип документов
+ */
 @Entity
 @Table(name = "documents_type")
 public class DocumentsType {
@@ -13,13 +15,19 @@ public class DocumentsType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-
+    /**
+     * Служебное поле hibernate
+     */
     @Version
     private Integer version;
-
+    /**
+     * Название документа
+     */
     @Column(name = "doc_name", unique = true, nullable = false, length = 30)
     private String docName;
-
+    /**
+     * Код документа
+     */
     @Column(name = "doc_code", unique = true, nullable = false, length = 15)
     private String docCode;
 

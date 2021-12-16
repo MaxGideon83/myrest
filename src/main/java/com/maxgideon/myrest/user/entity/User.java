@@ -5,11 +5,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.maxgideon.myrest.office.entity.Office;
 import com.maxgideon.myrest.user.entity.references.Countries;
-
-
 import javax.persistence.*;
 
-
+/**
+ * Пользователь
+ */
 @Entity
 @Table(name = "user")
 public class User {
@@ -18,25 +18,39 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-
+    /**
+     * Служебное поле hibernate
+     */
     @Version
     private Integer version;
-
+    /**
+     * Имя
+     */
     @Column(name = "first_name", nullable = false, length = 30)
     private String firstName;
-
+    /**
+     * Фамилия
+     */
     @Column(name = "second_name", length = 30)
     private String secondName;
-
+    /**
+     * Отчество
+     */
     @Column(name = "middle_name", length = 30)
     private String middleName;
-
+    /**
+     * Должность
+     */
     @Column(name = "position", nullable = false, length = 30)
     private String position;
-
+    /**
+     * Телефон
+     */
     @Column(name = "phone", length = 30)
     private String phone;
-
+    /**
+     * Идентифицирован
+     */
     @Column(name = "is_identified", length = 6)
     private String isIdentified;
 

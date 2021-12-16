@@ -5,6 +5,9 @@ import com.maxgideon.myrest.user.entity.references.DocumentsType;
 
 import javax.persistence.*;
 
+/**
+ * Документы
+ */
 @Entity
 @Table(name = "documents")
 public class Documents {
@@ -12,13 +15,19 @@ public class Documents {
     @Id
     @Column(name = "id")
     private long id;
-
+    /**
+     * Служебное поле hibernate
+     */
     @Version
     private Integer version;
-
+    /**
+     * Номер документа
+     */
     @Column(name = "doc_number", length = 30)
     private String docNumber;
-
+    /**
+     * Дата выдачи
+     */
     @Column(name = "doc_date", length = 15)
     private String docDate;
 

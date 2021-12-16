@@ -63,7 +63,10 @@ public class OrganizationDto {
         this.phone = org.getPhone();
         this.isActive = org.getIsActive();
     }
-
+    /**
+     * Метод для обновления свойств объекта Organization свойствами объекта OrganizationDto
+     * @param organization объект класса Organization
+     */
     public void organizationUpdate(Organization organization){
         organization.setName(this.getName());
         organization.setFullName(this.getFullName());

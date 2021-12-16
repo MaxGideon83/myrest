@@ -92,6 +92,10 @@ public class OfficeDto {
         this.orgId = orgId;
     }
 
+    /**
+     * Метод для обновления свойств объекта Office свойствами объекта OfficeDto
+     * @param office объект класса Office
+     */
     public void officeUpdate(Office office){
         office.setName(this.getName());
         office.setAddress(this.getAddress());

@@ -86,7 +86,10 @@ public class UserDto {
         }
         this.isIdentified = user.getIsIdentified();
     }
-
+    /**
+     * Метод для обновления свойств объекта User свойствами объекта UserDto
+     * @param user объект класса User
+     */
     public void userUpdate(User user){
         user.setFirstName(this.getFirstName());
         if(this.getSecondName() != null) {

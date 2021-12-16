@@ -1,5 +1,8 @@
-package com.maxgideon.myrest.exception;
+package com.maxgideon.myrest.advice;
 
+/**
+ * Класс обертка для возвращаемых ошибок
+ */
 public class ResponseError {
 
     private String error;
