@@ -4,7 +4,7 @@ package com.maxgideon.myrest.user.dao;
 import com.maxgideon.myrest.user.entity.User;
 import com.maxgideon.myrest.user.entity.references.Countries;
 import com.maxgideon.myrest.user.entity.references.DocumentsType;
-import com.maxgideon.myrest.user.service.data.UserDto;
+
 
 import java.util.List;
 /**
@@ -13,10 +13,10 @@ import java.util.List;
 public interface UserDao {
     /**
      * Метод для получения списка пользователей
-     * @param userDto объект класса UserDto
+     * @param user объект класса UserDto
      * @return List<User> коллекция объектов User
      */
-    public List<User> getAllUser(UserDto userDto);
+    public List<User> getAllUser(User user);
     /**
      * Метод для получения объекта User по id
      * @param id переменная типа long, идентификатор пользователя в базе
@@ -25,14 +25,10 @@ public interface UserDao {
     public User getUserById(long id);
     /**
      * Метод для сохранения объекта User в БД
-     * @param userDto объект класса UserDto
+     * @param user объект класса User
      */
-    public void saveUser(UserDto userDto);
-    /**
-     * Метод для обновления объекта User в БД
-     * @param userDto объект класса UserDto
-     */
-    public void updateUser(UserDto userDto);
+    public void saveUser(User user);
+
     /**
      * Метод для получения списка типов документа
      * @return List<DocumentsType> коллекция объектов DocumentsType
@@ -43,4 +39,19 @@ public interface UserDao {
      * @return List<Countries> коллекция объектов Countries
      */
     public List<Countries> getAllCountries();
+
+    /**
+     * Метод для получения типа документа по его коду и\или имени
+     * @param code код типа документа
+     * @param name имя типа документа
+     * @return
+     */
+    public DocumentsType getDocumentsTypeByCodeOrName(String code, String name);
+
+    /**
+     * Метод для получения Страны по ее коду
+     * @param citizenshipCode код страны
+     * @return
+     */
+    public Countries getCountriesByCitizenshipCode(String citizenshipCode);
 }
