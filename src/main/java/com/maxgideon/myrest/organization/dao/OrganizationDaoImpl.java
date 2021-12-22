@@ -1,11 +1,8 @@
 package com.maxgideon.myrest.organization.dao;
 
 import com.maxgideon.myrest.organization.entity.Organization;
-import com.maxgideon.myrest.organization.service.data.OrganizationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -21,19 +18,19 @@ public class OrganizationDaoImpl implements OrganizationDao {
     private EntityManager em;
 
     @Override
-    public List<Organization> getAllOrganizations(OrganizationDto organizationDto) {
+    public List<Organization> getAllOrganizations(Organization organization) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Organization> criteriaQuery = cb.createQuery(Organization.class);
         Root<Organization> organizationRoot = criteriaQuery.from(Organization.class);
         Predicate criteria = cb.conjunction();
-        Predicate p = cb.equal(organizationRoot.get("name"), organizationDto.getName());
+        Predicate p = cb.equal(organizationRoot.get("name"), organization.getName());
         criteria = cb.and(criteria,p);
-        if(organizationDto.getInn()!= null){
-            Predicate pr = cb.equal(organizationRoot.get("inn"), organizationDto.getInn());
+        if(organization.getInn()!= null){
+            Predicate pr = cb.equal(organizationRoot.get("inn"), organization.getInn());
             criteria = cb.and(criteria,pr);
         }
-        if(organizationDto.getIsActive() != null){
-            Predicate pr = cb.equal(organizationRoot.get("isActive"), organizationDto.getIsActive());
+        if(organization.getIsActive() != null){
+            Predicate pr = cb.equal(organizationRoot.get("isActive"), organization.getIsActive());
             criteria = cb.and(criteria,pr);
         }
         criteriaQuery.where(criteria);
@@ -53,21 +50,11 @@ public class OrganizationDaoImpl implements OrganizationDao {
         return organization;
     }
 
-    @Transactional
+
     @Override
-    public void saveOrganization(OrganizationDto organizationDto) {
-        Organization organization = new Organization();
-        organizationDto.organizationUpdate(organization);
+    public void saveOrganization(Organization organization) {
         em.persist(organization);
     }
 
-    @Transactional
-    @Override
-    public void updateOrganization(OrganizationDto organizationDto) {
-        Organization organization = em.find(Organization.class, organizationDto.getId());
-        if (organization == null) {
-            throw new NoResultException("Организации с таким Id не найдено");
-        }
-        organizationDto.organizationUpdate(organization);
-    }
+
 }
