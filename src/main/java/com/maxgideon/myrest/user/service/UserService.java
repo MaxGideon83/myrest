@@ -1,7 +1,6 @@
 package com.maxgideon.myrest.user.service;
 
-import com.maxgideon.myrest.user.entity.references.Countries;
-import com.maxgideon.myrest.user.entity.references.DocumentsType;
+
 import com.maxgideon.myrest.user.service.data.UserDto;
 
 import java.util.List;
@@ -31,14 +30,5 @@ public interface UserService {
      * @param userDto объект класса UserDto
      */
     public void updateUser(UserDto userDto);
-    /**
-     * Метод для получения списка типов документа
-     * @return List<DocumentsType> коллекция объектов DocumentsType
-     */
-    public List<DocumentsType> showAllDocumentsType();
-    /**
-     * Метод для получения списка стран
-     * @return List<Countries> коллекция объектов Countries
-     */
-    public List<Countries> showAllCountries();
+
 }

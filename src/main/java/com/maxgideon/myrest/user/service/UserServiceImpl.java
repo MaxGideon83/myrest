@@ -5,8 +5,8 @@ import com.maxgideon.myrest.office.entity.Office;
 import com.maxgideon.myrest.user.dao.UserDao;
 import com.maxgideon.myrest.user.entity.Documents;
 import com.maxgideon.myrest.user.entity.User;
-import com.maxgideon.myrest.user.entity.references.Countries;
-import com.maxgideon.myrest.user.entity.references.DocumentsType;
+import com.maxgideon.myrest.references.entity.Countries;
+import com.maxgideon.myrest.references.entity.DocumentsType;
 import com.maxgideon.myrest.user.service.data.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -127,17 +127,6 @@ public class UserServiceImpl implements UserService{
 
     };
 
-
-
-    @Override
-    public List<DocumentsType> showAllDocumentsType() {
-        return userDao.getAllDocumentsType();
-    }
-
-    @Override
-    public List<Countries> showAllCountries() {
-        return userDao.getAllCountries();
-    }
 
     /**
      * Метод для обновления свойств объекта User свойствами объекта UserDto

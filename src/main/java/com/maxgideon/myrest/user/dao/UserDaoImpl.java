@@ -1,15 +1,14 @@
 package com.maxgideon.myrest.user.dao;
 import com.maxgideon.myrest.user.entity.Documents;
 import com.maxgideon.myrest.user.entity.User;
-import com.maxgideon.myrest.user.entity.references.Countries;
-import com.maxgideon.myrest.user.entity.references.DocumentsType;
+import com.maxgideon.myrest.references.entity.Countries;
+import com.maxgideon.myrest.references.entity.DocumentsType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 
@@ -86,19 +85,6 @@ public class UserDaoImpl implements UserDao {
        em.persist(user);
     };
 
-    @Override
-    public List<DocumentsType> getAllDocumentsType() {
-        Query query = em.createQuery("from DocumentsType");
-        List<DocumentsType> docList = query.getResultList();
-        return docList;
-    }
-
-    @Override
-    public List<Countries> getAllCountries() {
-        Query query = em.createQuery("from Countries");
-        List<Countries> contList = query.getResultList();
-        return contList;
-    }
 
     @Override
     public DocumentsType getDocumentsTypeByCodeOrName(String code, String name){

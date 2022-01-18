@@ -1,7 +1,7 @@
 package com.maxgideon.myrest.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.maxgideon.myrest.user.entity.references.DocumentsType;
+import com.maxgideon.myrest.references.entity.DocumentsType;
 
 import javax.persistence.*;
 

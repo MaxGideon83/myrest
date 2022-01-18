@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.maxgideon.myrest.office.entity.Office;
 import com.maxgideon.myrest.user.entity.Documents;
 import com.maxgideon.myrest.user.entity.User;
-import com.maxgideon.myrest.user.entity.references.Countries;
+import com.maxgideon.myrest.references.entity.Countries;
 import com.maxgideon.myrest.validation.Marker;
 import javax.validation.constraints.NotNull;
 

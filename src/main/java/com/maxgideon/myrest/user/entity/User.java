@@ -4,7 +4,7 @@ package com.maxgideon.myrest.user.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.maxgideon.myrest.office.entity.Office;
-import com.maxgideon.myrest.user.entity.references.Countries;
+import com.maxgideon.myrest.references.entity.Countries;
 import javax.persistence.*;
 
 /**

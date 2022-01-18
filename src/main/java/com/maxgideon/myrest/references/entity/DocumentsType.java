@@ -1,4 +1,4 @@
-package com.maxgideon.myrest.user.entity.references;
+package com.maxgideon.myrest.references.entity;
 
 
 

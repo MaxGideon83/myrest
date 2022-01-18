@@ -1,7 +1,6 @@
 package com.maxgideon.myrest.user.controller;
 
-import com.maxgideon.myrest.user.entity.references.Countries;
-import com.maxgideon.myrest.user.entity.references.DocumentsType;
+
 import com.maxgideon.myrest.user.service.UserService;
 import com.maxgideon.myrest.user.service.data.UserDto;
 import com.maxgideon.myrest.validation.Marker;
@@ -42,16 +41,6 @@ public class UserController {
     @PostMapping("/user/update")
     public void updateUser(@RequestBody @Valid UserDto userDto){
         userService.updateUser(userDto);
-    }
-
-    @PostMapping("/docs")
-    public List<DocumentsType> showAllDocumentsType(){
-        return userService.showAllDocumentsType();
-    }
-
-    @PostMapping("/countries")
-    public List<Countries> showAllCountries(){
-        return userService.showAllCountries();
     }
 
 }

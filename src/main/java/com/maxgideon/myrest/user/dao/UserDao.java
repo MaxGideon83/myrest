@@ -2,8 +2,8 @@ package com.maxgideon.myrest.user.dao;
 
 
 import com.maxgideon.myrest.user.entity.User;
-import com.maxgideon.myrest.user.entity.references.Countries;
-import com.maxgideon.myrest.user.entity.references.DocumentsType;
+import com.maxgideon.myrest.references.entity.Countries;
+import com.maxgideon.myrest.references.entity.DocumentsType;
 
 
 import java.util.List;
@@ -28,17 +28,6 @@ public interface UserDao {
      * @param user объект класса User
      */
     public void saveUser(User user);
-
-    /**
-     * Метод для получения списка типов документа
-     * @return List<DocumentsType> коллекция объектов DocumentsType
-     */
-    public List<DocumentsType> getAllDocumentsType();
-    /**
-     * Метод для получения списка стран
-     * @return List<Countries> коллекция объектов Countries
-     */
-    public List<Countries> getAllCountries();
 
     /**
      * Метод для получения типа документа по его коду и\или имени
