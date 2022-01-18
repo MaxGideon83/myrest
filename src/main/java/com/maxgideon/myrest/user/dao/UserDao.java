@@ -4,6 +4,7 @@ package com.maxgideon.myrest.user.dao;
 import com.maxgideon.myrest.user.entity.User;
 import com.maxgideon.myrest.references.entity.Countries;
 import com.maxgideon.myrest.references.entity.DocumentsType;
+import com.maxgideon.myrest.user.service.data.UserDto;
 
 
 import java.util.List;
@@ -13,10 +14,10 @@ import java.util.List;
 public interface UserDao {
     /**
      * Метод для получения списка пользователей
-     * @param user объект класса UserDto
+     * @param userDto объект класса UserDto
      * @return List<User> коллекция объектов User
      */
-    public List<User> getAllUser(User user);
+    public List<User> getAllUser(UserDto userDto);
     /**
      * Метод для получения объекта User по id
      * @param id переменная типа long, идентификатор пользователя в базе

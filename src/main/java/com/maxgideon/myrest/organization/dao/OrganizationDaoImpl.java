@@ -1,6 +1,7 @@
 package com.maxgideon.myrest.organization.dao;
 
 import com.maxgideon.myrest.organization.entity.Organization;
+import com.maxgideon.myrest.organization.service.data.OrganizationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
@@ -18,19 +19,19 @@ public class OrganizationDaoImpl implements OrganizationDao {
     private EntityManager em;
 
     @Override
-    public List<Organization> getAllOrganizations(Organization organization) {
+    public List<Organization> getAllOrganizations(OrganizationDto organizationDto) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Organization> criteriaQuery = cb.createQuery(Organization.class);
         Root<Organization> organizationRoot = criteriaQuery.from(Organization.class);
         Predicate criteria = cb.conjunction();
-        Predicate p = cb.equal(organizationRoot.get("name"), organization.getName());
+        Predicate p = cb.equal(organizationRoot.get("name"), organizationDto.getName());
         criteria = cb.and(criteria,p);
-        if(organization.getInn()!= null){
-            Predicate pr = cb.equal(organizationRoot.get("inn"), organization.getInn());
+        if(organizationDto.getInn()!= null){
+            Predicate pr = cb.equal(organizationRoot.get("inn"), organizationDto.getInn());
             criteria = cb.and(criteria,pr);
         }
-        if(organization.getIsActive() != null){
-            Predicate pr = cb.equal(organizationRoot.get("isActive"), organization.getIsActive());
+        if(organizationDto.getIsActive() != null){
+            Predicate pr = cb.equal(organizationRoot.get("isActive"), organizationDto.getIsActive());
             criteria = cb.and(criteria,pr);
         }
         criteriaQuery.where(criteria);

@@ -17,9 +17,7 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     @Override
     public List<OrganizationDto> getAllOrganization(OrganizationDto organizationDto) {
-        Organization organization = new Organization();
-        organizationUpdate(organizationDto,organization);
-        List<Organization>list =  organizationDAO.getAllOrganizations(organization);
+        List<Organization>list =  organizationDAO.getAllOrganizations(organizationDto);
         List<OrganizationDto> dl = new ArrayList<>();
         for(Organization org : list){
             dl.add(new OrganizationDto(org.getId(),org.getName(),org.getIsActive()));

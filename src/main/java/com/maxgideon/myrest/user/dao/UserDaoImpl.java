@@ -3,6 +3,7 @@ import com.maxgideon.myrest.user.entity.Documents;
 import com.maxgideon.myrest.user.entity.User;
 import com.maxgideon.myrest.references.entity.Countries;
 import com.maxgideon.myrest.references.entity.DocumentsType;
+import com.maxgideon.myrest.user.service.data.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class UserDaoImpl implements UserDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDaoImpl.class);
 
     @Override
-    public List<User> getAllUser(User user) {
+    public List<User> getAllUser(UserDto userDto) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<User> cq = cb.createQuery(User.class);
         Root<User> userRoot = cq.from(User.class);
@@ -33,31 +34,31 @@ public class UserDaoImpl implements UserDao {
         Join<Documents, DocumentsType> documentsType = documents.join("docType");
         Join<User, Countries> countriesJoin = userRoot.join("countries");
         Predicate criteria = cb.conjunction();
-        Predicate p = cb.equal(userRoot.get("office"), user.getOffice().getId());
+        Predicate p = cb.equal(userRoot.get("office"), userDto.getOfficeId());
         criteria = cb.and(criteria, p);
-        if (user.getFirstName() != null) {
-            Predicate pr = cb.equal(userRoot.get("firstName"), user.getFirstName());
+        if (userDto.getFirstName() != null) {
+            Predicate pr = cb.equal(userRoot.get("firstName"), userDto.getFirstName());
             criteria = cb.and(criteria, pr);
         }
-        if (user.getSecondName() != null) {
-            Predicate pr = cb.equal(userRoot.get("secondName"), user.getSecondName());
+        if (userDto.getSecondName() != null) {
+            Predicate pr = cb.equal(userRoot.get("secondName"), userDto.getSecondName());
             criteria = cb.and(criteria, pr);
         }
-        if (user.getMiddleName() != null) {
-            Predicate pr = cb.equal(userRoot.get("middleName"), user.getMiddleName());
+        if (userDto.getMiddleName() != null) {
+            Predicate pr = cb.equal(userRoot.get("middleName"), userDto.getMiddleName());
             criteria = cb.and(criteria, pr);
         }
-        if (user.getPosition() != null) {
-            Predicate pr = cb.equal(userRoot.get("position"), user.getPosition());
+        if (userDto.getPosition() != null) {
+            Predicate pr = cb.equal(userRoot.get("position"), userDto.getPosition());
             criteria = cb.and(criteria, pr);
         }
-        if (user.getDocuments().getDocType().getDocCode() != null) {
-            Predicate pr = cb.equal(documentsType.get("docCode"), user.getDocuments().getDocType().getDocCode());
+        if (userDto.getDocCode() != null) {
+            Predicate pr = cb.equal(documentsType.get("docCode"), userDto.getDocCode());
             criteria = cb.and(criteria, pr);
         }
 
-        if (user.getCountries().getCitizenshipCode() != null) {
-            Predicate pr = cb.equal(countriesJoin.get("citizenshipCode"), user.getCountries().getCitizenshipCode());
+        if (userDto.getCitizenshipCode() != null) {
+            Predicate pr = cb.equal(countriesJoin.get("citizenshipCode"), userDto.getCitizenshipCode());
             criteria = cb.and(criteria, pr);
         }
 

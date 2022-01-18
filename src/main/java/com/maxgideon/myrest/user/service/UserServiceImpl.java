@@ -25,23 +25,7 @@ public class UserServiceImpl implements UserService{
     OfficeDao officeDao;
 
     public List<UserDto> getAllUser(UserDto userDto){
-        User user = new User();
-        userUpdate(userDto,user);
-        Office office = officeDao.getOfficeById(userDto.getOfficeId());
-        Countries countries = new Countries();
-        Documents documents = new Documents();
-        DocumentsType documentsType = new DocumentsType();
-        if(userDto.getCitizenshipCode() != null) {
-            countries = userDao.getCountriesByCitizenshipCode(userDto.getCitizenshipCode());
-        }
-        if(userDto.getDocCode() != null) {
-            documentsType = userDao.getDocumentsTypeByCodeOrName(userDto.getDocCode(), userDto.getDocName());
-        }
-        documents.setDocType(documentsType);
-        user.setOffice(office);
-        user.setDocuments(documents);
-        user.setCountries(countries);
-        List<User> list = userDao.getAllUser(user);
+        List<User> list = userDao.getAllUser(userDto);
         List<UserDto> listDto = new ArrayList<>();
         for(User us: list){
             listDto.add(new UserDto(us.getId(),us.getFirstName(),us.getSecondName(),us.getMiddleName(),us.getPosition()));

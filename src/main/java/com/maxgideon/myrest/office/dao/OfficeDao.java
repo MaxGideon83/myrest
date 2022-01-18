@@ -12,10 +12,10 @@ import java.util.List;
 public interface OfficeDao {
     /**
      * Метод для получения списка офисов
-     * @param office объект класса OfficeDto
+     * @param officeDto объект класса OfficeDto
      * @return List<Office> коллекция объектов Office
      */
-    public List<Office> getAllOffice(Office office);
+    public List<Office> getAllOffice(OfficeDto officeDto);
 
     /**
      * Метод для получения объекта Office по id

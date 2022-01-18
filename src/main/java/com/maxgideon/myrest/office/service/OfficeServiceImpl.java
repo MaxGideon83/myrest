@@ -23,11 +23,7 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     public List<OfficeDto> getAllOffice(OfficeDto officeDto) {
-        Office office = new Office();
-        officeUpdate(officeDto,office);
-        Organization organization = organizationDao.getOrganizationById(officeDto.getOrgId());
-        office.setOrg(organization);
-        List<Office> list = officeDao.getAllOffice(office);
+        List<Office> list = officeDao.getAllOffice(officeDto);
         List<OfficeDto> listDto = new ArrayList<>();
         for(Office of: list){
             listDto.add(new OfficeDto(of.getId(),of.getName(),of.getIsActive()));

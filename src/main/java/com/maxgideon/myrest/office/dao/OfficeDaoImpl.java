@@ -1,6 +1,7 @@
 package com.maxgideon.myrest.office.dao;
 
 import com.maxgideon.myrest.office.entity.Office;
+import com.maxgideon.myrest.office.service.data.OfficeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,23 +20,23 @@ public class OfficeDaoImpl implements OfficeDao{
     EntityManager em;
 
     @Override
-    public List<Office> getAllOffice(Office office) {
+    public List<Office> getAllOffice(OfficeDto officeDto) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Office> criteriaQuery = cb.createQuery(Office.class);
         Root<Office> officeRoot = criteriaQuery.from(Office.class);
         Predicate criteria = cb.conjunction();
-        Predicate p = cb.equal(officeRoot.get("org"), office.getOrg().getId());
+        Predicate p = cb.equal(officeRoot.get("org"), officeDto.getOrgId());
         criteria = cb.and(criteria,p);
-        if(office.getName()!= null){
-            Predicate pr = cb.equal(officeRoot.get("name"), office.getName());
+        if(officeDto.getName()!= null){
+            Predicate pr = cb.equal(officeRoot.get("name"), officeDto.getName());
             criteria = cb.and(criteria,pr);
         }
-        if(office.getPhone() != null){
-            Predicate pr = cb.equal(officeRoot.get("phone"), office.getPhone());
+        if(officeDto.getPhone() != null){
+            Predicate pr = cb.equal(officeRoot.get("phone"), officeDto.getPhone());
             criteria = cb.and(criteria,pr);
         }
-        if(office.getIsActive() != null){
-            Predicate pr = cb.equal(officeRoot.get("isActive"), office.getIsActive());
+        if(officeDto.getIsActive() != null){
+            Predicate pr = cb.equal(officeRoot.get("isActive"), officeDto.getIsActive());
             criteria = cb.and(criteria,pr);
         }
         criteriaQuery.where(criteria);
